@@ -34,7 +34,7 @@ function Experience() {
             intensity={ 1.5 }
             shadow-mapSize={ [ 1024, 1024 ] }
             shadow-camera-near={ 1 }
-            shadow-camera-far={ 10 }
+            shadow-camera-far={ 13 }
             shadow-camera-top={ 10 }
             shadow-camera-right={ 10 }
             shadow-camera-bottom={ - 10 }
