@@ -8,9 +8,7 @@ export function Floor(props) {
             <mesh
                 geometry={nodes.floor_dirt.geometry}
                 material={materials.HalloweenBits}
-                position={[0, 0, 0]}
-                rotation={[0, 0, 0]}
-                scale={[1, 1, 1]}
+                receiveShadow
             />
         </group>
     )
@@ -24,9 +22,7 @@ export function FloorGrave(props) {
             <mesh
                 geometry={nodes.floor_dirt_grave.geometry}
                 material={materials.HalloweenBits}
-                position={[0, 0, 0]}
-                rotation={[0, 0, 0]}
-                scale={[1, 1, 1]}
+                receiveShadow
             />
         </group>
     )
@@ -41,9 +37,7 @@ export function Path(props) {
             <mesh
                 geometry={nodes.path_A.geometry}
                 material={materials.HalloweenBits}
-                position={[0, 0, 0]}
-                rotation={[0, 0, 0]}
-                scale={[1, 1, 1]}
+                receiveShadow
             />
         </group>
     )

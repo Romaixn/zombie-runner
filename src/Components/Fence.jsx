@@ -8,23 +8,20 @@ export function Gate(props) {
             <mesh
                 geometry={nodes.fence_gate.geometry}
                 material={materials.HalloweenBits}
-                position={[0, 0, 0]}
-                rotation={[0, 0, 0]}
-                scale={[1, 1, 1]}
+                castShadow
+                receiveShadow
             />
             <mesh
                 geometry={nodes.fence_gate_left.geometry}
                 material={materials.HalloweenBits}
-                position={[0, 0, 0]}
-                rotation={[0, 0, 0]}
-                scale={[1, 1, 1]}
+                castShadow
+                receiveShadow
             />
             <mesh
                 geometry={nodes.fence_gate_right.geometry}
                 material={materials.HalloweenBits}
-                position={[0, 0, 0]}
-                rotation={[0, 0, 0]}
-                scale={[1, 1, 1]}
+                castShadow
+                receiveShadow
             />
         </group>
     )
@@ -33,16 +30,13 @@ export function Gate(props) {
 export function Fence(props) {
     const { nodes, materials } = useGLTF('/gltf/fence.gltf')
 
-    console.log(nodes);
-
     return (
         <group {...props}>
             <mesh
                 geometry={nodes.fence.geometry}
                 material={materials.HalloweenBits}
-                position={[0, 0, 0]}
-                rotation={[0, 0, 0]}
-                scale={[1, 1, 1]}
+                castShadow
+                receiveShadow
             />
         </group>
     )
@@ -56,9 +50,8 @@ export function FenceBroken(props) {
             <mesh
                 geometry={nodes.fence_broken.geometry}
                 material={materials.HalloweenBits}
-                position={[0, 0, 0]}
-                rotation={[0, 0, 0]}
-                scale={[1, 1, 1]}
+                castShadow
+                receiveShadow
             />
         </group>
     )
