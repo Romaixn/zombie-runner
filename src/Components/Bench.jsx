@@ -34,3 +34,5 @@ export function Bench(props) {
         </group>
     )
 }
+
+useGLTF.preload('/gltf/bench_decorated.gltf')

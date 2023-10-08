@@ -40,3 +40,10 @@ export function Pumpkin(props) {
         </group>
     )
 }
+
+useGLTF.preload('/gltf/pumpkin_orange_jackolantern.gltf')
+useGLTF.preload('/gltf/pumpkin_orange.gltf')
+useGLTF.preload('/gltf/pumpkin_orange_small.gltf')
+useGLTF.preload('/gltf/pumpkin_yellow_jackolantern.gltf')
+useGLTF.preload('/gltf/pumpkin_yellow.gltf')
+useGLTF.preload('/gltf/pumpkin_yellow_small.gltf')

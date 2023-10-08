@@ -43,7 +43,7 @@ export function Lantern(props) {
                 color={'#BF8838'}
             />
             <Sparkles
-                count={10}
+                count={5}
                 size={5}
                 speed={1.5}
                 position={[0, 2, 1]}
