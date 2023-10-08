@@ -30,7 +30,7 @@ export function FloorGrave(props) {
 
 
 export function Path(props) {
-    const random = Math.floor(Math.random() * 4) + 1
+    const random = Math.floor(Math.random() * 3) + 1
     let pathType
 
     switch(random) {
@@ -42,9 +42,6 @@ export function Path(props) {
             break
         case 3:
             pathType = 'path_C'
-            break
-        case 4:
-            pathType = 'path_D'
             break
         default:
             pathType = 'path_A'

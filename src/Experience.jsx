@@ -6,6 +6,7 @@ import { Level } from './Level'
 import { Perf } from 'r3f-perf'
 import { useRef } from 'react'
 import * as THREE from 'three'
+import { useControls } from 'leva'
 // import Ecctrl from 'ecctrl'
 
 
@@ -20,7 +21,17 @@ function Experience() {
     ]
 
     const light = useRef()
-    useHelper(light, THREE.DirectionalLightHelper, 1)
+    const { lightHelper } = useControls({ lightHelper: false })
+    useHelper(lightHelper && light, THREE.DirectionalLightHelper, 1)
+
+    const { levelCount } = useControls('level', {
+        levelCount: {
+            value: 3,
+            min: 1,
+            max: 20,
+            step: 1,
+        },
+    })
 
   return (
     <>
@@ -30,7 +41,7 @@ function Experience() {
             ref={light}
             castShadow
             position={ [ 4, 4, 4 ] }
-            intensity={ 1 }
+            intensity={ 0.6 }
             shadow-mapSize={ [ 1024, 1024 ] }
             shadow-camera-near={ 1 }
             shadow-camera-far={ 13 }
@@ -44,7 +55,7 @@ function Experience() {
 
         <Suspense fallback={<Loader />}>
             <Physics timeStep='vary'>
-                <Level />
+                <Level count={levelCount} />
                 <KeyboardControls map={keyboardMap}>
                     {/* <Ecctrl> */}
                         <Skeleton position={[0, 0, 4]} />

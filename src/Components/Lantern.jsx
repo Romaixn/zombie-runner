@@ -1,11 +1,20 @@
 import { useGLTF, useHelper } from "@react-three/drei"
+import { useControls } from "leva"
+import { useEffect } from "react"
 import { useRef } from "react"
 import * as THREE from 'three'
 
 export function LanternHanging(props) {
     const { nodes, materials } = useGLTF('/gltf/post_lantern.gltf')
+    const lightTarget = useRef()
     const light = useRef()
-    useHelper(light, THREE.PointLightHelper, 1)
+    const { lightHelper } = useControls({ lightHelper: false })
+
+    useHelper(lightHelper && light, THREE.SpotLightHelper, 1)
+
+    useEffect(() => {
+        light.current.target = lightTarget.current
+    }, [])
 
     return (
         <group {...props}>
@@ -22,10 +31,15 @@ export function LanternHanging(props) {
                 castShadow
                 receiveShadow
             />
-            <pointLight
+            <mesh
+                ref={lightTarget}
+                position={[0, 0, 1]}
+            />
+            <spotLight
                 ref={light}
+                castShadow
                 position={[0, 2, 1]}
-                intensity={5}
+                intensity={3}
                 color={'#BF8838'}
             />
         </group>
