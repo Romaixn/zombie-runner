@@ -52,6 +52,7 @@ function Experience() {
         />
         <Environment preset='night' />
         <Stars radius={50} count={800} fade speed={1} />
+        <fog attach='fog' args={['#383B43', 1, 60]} />
 
         <OrbitControls />
 
