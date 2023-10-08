@@ -1,6 +1,4 @@
-* {
-    box-sizing: border-box;
-}
+@layer reset, base, tokens, recipes, utilities;
 
 html,
 body,

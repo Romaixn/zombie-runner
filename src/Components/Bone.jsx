@@ -34,3 +34,8 @@ export function Bone(props) {
         </group>
     )
 }
+
+useGLTF.preload('/gltf/bone_A.gltf')
+useGLTF.preload('/gltf/bone_B.gltf')
+useGLTF.preload('/gltf/bone_C.gltf')
+useGLTF.preload('/gltf/ribcage.gltf')

@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "prepare": "panda codegen",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
@@ -19,9 +20,11 @@
     "r3f-perf": "^7.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "three": "^0.157.0"
+    "three": "^0.157.0",
+    "zustand": "^4.4.3"
   },
   "devDependencies": {
+    "@pandacss/dev": "^0.15.5",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react-swc": "^3.3.2",
