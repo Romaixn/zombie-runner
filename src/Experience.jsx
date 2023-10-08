@@ -26,12 +26,11 @@ function Experience() {
     <>
         <Perf position='top-left' />
         <color args={ [ '#383B43' ] } attach="background" />
-        <ambientLight intensity={0.5} />
         <directionalLight
             ref={light}
             castShadow
             position={ [ 4, 4, 4 ] }
-            intensity={ 1.5 }
+            intensity={ 1 }
             shadow-mapSize={ [ 1024, 1024 ] }
             shadow-camera-near={ 1 }
             shadow-camera-far={ 13 }
