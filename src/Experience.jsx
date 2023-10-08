@@ -7,6 +7,7 @@ import { Perf } from 'r3f-perf'
 import { useRef } from 'react'
 import * as THREE from 'three'
 import { useControls } from 'leva'
+import Effects from './Effects'
 // import Ecctrl from 'ecctrl'
 
 
@@ -26,7 +27,7 @@ function Experience() {
 
     const { levelCount } = useControls('level', {
         levelCount: {
-            value: 3,
+            value: 5,
             min: 1,
             max: 50,
             step: 1,
@@ -37,6 +38,7 @@ function Experience() {
     <>
         <Perf position='top-left' />
         <color args={ [ '#383B43' ] } attach="background" />
+
         <directionalLight
             ref={light}
             castShadow

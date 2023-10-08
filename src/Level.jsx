@@ -8,11 +8,11 @@ import { Pumpkin } from "./Components/Pumpkin"
 import { Grave } from "./Components/Grave"
 import { Bench } from "./Components/Bench"
 import { Coffin } from "./Components/Coffin"
+import { Skull } from "./Components/Skull"
+import { Bone } from "./Components/Bone"
 
 function BlockStart({ position = [0, 0, 0] }) {
     return <group position={position}>
-        <Lantern position={[-3.5, 0, 3]} rotation={[0, 0.5, 0]} />
-
         <Floor position={[-8, 0, 0]} />
         <Floor position={[-4, 0, 0]} />
 
@@ -60,9 +60,11 @@ function BlockStart({ position = [0, 0, 0] }) {
         <Fence position={[4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />
         <Fence position={[-4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />
 
+        <Lantern position={[-3.5, 0, 3]} rotation={[0, 0.5, 0]} />
+        <Skull position={[-2.75, 0, 2.8]} rotation={[0, 1.1, 0]} />
         <Pumpkin position={[9, 0, -1]} />
-
         <Bench position={[7, 0, 3]} rotation={[0, -0.3, 0]} />
+        <Bone position={[5.8, 0, 3]} rotation={[0, -0.8, 0]} />
         <Coffin position={[-7, 0, 8]} rotation={[0, 1.2, 0]} />
     </group>
 }
