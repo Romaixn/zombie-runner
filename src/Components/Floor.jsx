@@ -30,14 +30,35 @@ export function FloorGrave(props) {
 
 
 export function Path(props) {
-    const { nodes, materials } = useGLTF('/gltf/path_A.gltf')
+    const random = Math.floor(Math.random() * 4) + 1
+    let pathType
+
+    switch(random) {
+        case 1:
+            pathType = 'path_A'
+            break
+        case 2:
+            pathType = 'path_B'
+            break
+        case 3:
+            pathType = 'path_C'
+            break
+        case 4:
+            pathType = 'path_D'
+            break
+        default:
+            pathType = 'path_A'
+    }
+
+    const { nodes, materials } = useGLTF(`/gltf/${pathType}.gltf`)
 
     return (
         <group {...props}>
             <mesh
-                geometry={nodes.path_A.geometry}
+                geometry={nodes[pathType].geometry}
                 material={materials.HalloweenBits}
                 receiveShadow
+                castShadow
             />
         </group>
     )
@@ -45,3 +66,7 @@ export function Path(props) {
 
 useGLTF.preload('/gltf/floor_dirt.gltf')
 useGLTF.preload('/gltf/floor_dirt_grave.gltf')
+useGLTF.preload('/gltf/path_A.gltf')
+useGLTF.preload('/gltf/path_B.gltf')
+useGLTF.preload('/gltf/path_C.gltf')
+useGLTF.preload('/gltf/path_D.gltf')

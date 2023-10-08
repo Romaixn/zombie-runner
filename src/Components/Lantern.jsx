@@ -1,7 +1,11 @@
-import { useGLTF } from "@react-three/drei"
+import { useGLTF, useHelper } from "@react-three/drei"
+import { useRef } from "react"
+import * as THREE from 'three'
 
 export function LanternHanging(props) {
     const { nodes, materials } = useGLTF('/gltf/post_lantern.gltf')
+    const light = useRef()
+    useHelper(light, THREE.PointLightHelper, 1)
 
     return (
         <group {...props}>
@@ -17,6 +21,12 @@ export function LanternHanging(props) {
                 position={[0, 3, 1]}
                 castShadow
                 receiveShadow
+            />
+            <pointLight
+                ref={light}
+                position={[0, 2, 1]}
+                intensity={5}
+                color={'#BF8838'}
             />
         </group>
     )

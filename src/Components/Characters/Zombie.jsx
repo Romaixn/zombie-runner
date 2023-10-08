@@ -101,4 +101,4 @@ export function Skeleton(props) {
     );
   }
 
-  useGLTF.preload("/character/model/character_skeleton_minion.gltf");
+  useGLTF.preload("/characters/model/character_skeleton_minion.gltf");

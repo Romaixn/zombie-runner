@@ -1,5 +1,5 @@
 import { Environment, Html, KeyboardControls, OrbitControls, useHelper, useProgress } from '@react-three/drei'
-// import { Skeleton } from './Components/Characters/Zombie'
+import { Skeleton } from './Components/Characters/Zombie'
 import { Suspense } from 'react'
 import { Physics } from '@react-three/rapier'
 import { Level } from './Level'
@@ -46,11 +46,11 @@ function Experience() {
         <Suspense fallback={<Loader />}>
             <Physics timeStep='vary'>
                 <Level />
-                {/* <KeyboardControls map={keyboardMap}>
-                    <Ecctrl>
-                        <Skeleton />
-                    </Ecctrl>
-                </KeyboardControls> */}
+                <KeyboardControls map={keyboardMap}>
+                    {/* <Ecctrl> */}
+                        <Skeleton position={[0, 0, 4]} />
+                    {/* </Ecctrl> */}
+                </KeyboardControls>
             </Physics>
         </Suspense>
     </>
