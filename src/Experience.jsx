@@ -1,4 +1,4 @@
-import { Environment, Html, KeyboardControls, OrbitControls, useHelper, useProgress } from '@react-three/drei'
+import { Environment, Html, KeyboardControls, OrbitControls, Sparkles, Stars, useHelper, useProgress } from '@react-three/drei'
 import { Skeleton } from './Components/Characters/Zombie'
 import { Suspense } from 'react'
 import { Physics } from '@react-three/rapier'
@@ -28,7 +28,7 @@ function Experience() {
         levelCount: {
             value: 3,
             min: 1,
-            max: 20,
+            max: 50,
             step: 1,
         },
     })
@@ -51,6 +51,8 @@ function Experience() {
             shadow-camera-left={ - 10 }
         />
         <Environment preset='night' />
+        <Stars radius={50} count={800} fade speed={1} />
+
         <OrbitControls />
 
         <Suspense fallback={<Loader />}>

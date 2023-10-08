@@ -1,10 +1,10 @@
-import { useGLTF, useHelper } from "@react-three/drei"
+import { Sparkles, useGLTF, useHelper } from "@react-three/drei"
 import { useControls } from "leva"
 import { useEffect } from "react"
 import { useRef } from "react"
 import * as THREE from 'three'
 
-export function LanternHanging(props) {
+export function Lantern(props) {
     const { nodes, materials } = useGLTF('/gltf/post_lantern.gltf')
     const lightTarget = useRef()
     const light = useRef()
@@ -42,8 +42,47 @@ export function LanternHanging(props) {
                 intensity={3}
                 color={'#BF8838'}
             />
+            <Sparkles
+                count={10}
+                size={5}
+                speed={1.5}
+                position={[0, 2, 1]}
+            />
+        </group>
+    )
+}
+
+export function LanternStanding(props) {
+    const { nodes, materials } = useGLTF('/gltf/lantern_standing.gltf')
+    const light = useRef()
+    const { lightHelper } = useControls({ lightHelper: false })
+
+    useHelper(lightHelper && light, THREE.PointLightHelper, 1)
+
+    return (
+        <group {...props}>
+            <mesh
+                geometry={nodes.lantern_standing.geometry}
+                material={materials.HalloweenBits}
+                castShadow
+                receiveShadow
+            />
+            <pointLight
+                ref={light}
+                castShadow
+                position={[0, 0.5, 0]}
+                intensity={2}
+                color={'#BF8838'}
+            />
+            <Sparkles
+                count={4}
+                size={5}
+                speed={1.5}
+                position={[0, 0.5, 0]}
+            />
         </group>
     )
 }
 
 useGLTF.preload('/gltf/post_lantern.gltf')
+useGLTF.preload('/gltf/lantern_standing.gltf')

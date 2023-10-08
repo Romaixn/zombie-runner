@@ -35,6 +35,7 @@ export function Tree(props) {
                 geometry={nodes[treeType].geometry}
                 material={materials.HalloweenBits}
                 receiveShadow
+                castShadow
             />
         </group>
     )

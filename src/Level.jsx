@@ -1,13 +1,17 @@
 import { useMemo } from "react"
 import { Floor, Path } from "./Components/Floor"
 import { Fence, FenceBroken, Gate } from "./Components/Fence"
-import { LanternHanging } from "./Components/Lantern"
+import { Lantern, LanternStanding } from "./Components/Lantern"
 import { Tree } from "./Components/Tree"
 import { Crypt } from "./Crypt"
+import { Pumpkin } from "./Components/Pumpkin"
+import { Grave } from "./Components/Grave"
+import { Bench } from "./Components/Bench"
+import { Coffin } from "./Components/Coffin"
 
 function BlockStart({ position = [0, 0, 0] }) {
     return <group position={position}>
-        <LanternHanging position={[-3.5, 0, 3]} />
+        <Lantern position={[-3.5, 0, 3]} rotation={[0, 0.5, 0]} />
 
         <Floor position={[-8, 0, 0]} />
         <Floor position={[-4, 0, 0]} />
@@ -55,6 +59,11 @@ function BlockStart({ position = [0, 0, 0] }) {
 
         <Fence position={[4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />
         <Fence position={[-4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />
+
+        <Pumpkin position={[9, 0, -1]} />
+
+        <Bench position={[7, 0, 3]} rotation={[0, -0.3, 0]} />
+        <Coffin position={[-7, 0, 8]} rotation={[0, 1.2, 0]} />
     </group>
 }
 
@@ -122,14 +131,17 @@ function BlockEmpty({ position = [0, 0, 0]}) {
     </group>
 }
 
-function Decor({ side = 'left', count = 1, types = [Tree] }) {
+function Decor({ side = 'left', count = 3, types = [Tree, Pumpkin, Grave] }) {
     const blocks = useMemo(() => {
         const blocks = []
         let typeIndex = 0
         for (let i = 0; i < count; i++) {
             const type = types[Math.floor(Math.random() * types.length)]
             const rotation = (Math.random() - 0.5) * Math.PI
-            blocks.push({ type, rotation })
+
+            const randomX = Math.floor(Math.random() * (9 - 6 + 1)) + 6
+            const position = [side === 'left' ? -randomX : randomX, 0, -(i + 1)]
+            blocks.push({ type, rotation, position })
 
             typeIndex++
             if (typeIndex >= types.length) {
@@ -141,12 +153,12 @@ function Decor({ side = 'left', count = 1, types = [Tree] }) {
     }, [count, types])
 
     return <>
-        { blocks.map((block, index) => {
-            const { type: Type, rotation } = block
+        {blocks.map((block, index) => {
+            const { type: Type, rotation, position } = block
             return (
                 <Type
                     key={index}
-                    position={[side === 'left' ? -8 : 8, 0, -(index + 1) ]}
+                    position={position}
                     rotation={[0, rotation, 0]}
                 />
             )
@@ -167,7 +179,7 @@ export function Level({ count = 2, seed = 0 }) {
 
     return <>
         <BlockStart />
-        { blocks.map((Block, index) => <Block key={index} position={[0, 0, -(index + 1) * 4 ]} />)}
+        {blocks.map((Block, index) => <Block key={index} position={[0, 0, -(index + 1) * 4 ]} />)}
 
         <BlockEnd position={[0, 0, -(count + 1) * 4 ]} />
     </>
