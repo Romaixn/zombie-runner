@@ -10,6 +10,7 @@ import { Bench } from "./Components/Bench"
 import { Coffin } from "./Components/Coffin"
 import { Skull } from "./Components/Skull"
 import { Bone } from "./Components/Bone"
+import { RigidBody } from "@react-three/rapier"
 
 function BlockStart({ position = [0, 0, 0] }) {
     return <group position={position}>
@@ -49,23 +50,35 @@ function BlockStart({ position = [0, 0, 0] }) {
         <Floor position={[4, 0, 8]} />
         <Floor position={[8, 0, 8]} />
 
-
-        <FenceBroken position={[-8, 0, 1]} />
-        <Fence position={[-4, 0, 1]} />
+        <RigidBody type='fixed'>
+            <FenceBroken position={[-8, 0, 1]} />
+            <Fence position={[-4, 0, 1]} />
+        </RigidBody>
         <Gate position={[0, 0, 1]} />
-        <Fence position={[4, 0, 1]} />
-        <Fence position={[8, 0, 1]} />
+        <RigidBody type='fixed'>
+            <Fence position={[4, 0, 1]} />
+            <Fence position={[8, 0, 1]} />
+        </RigidBody>
 
 
         <Fence position={[4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />
         <Fence position={[-4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />
 
         <Lantern position={[-3.5, 0, 3]} rotation={[0, 0.5, 0]} />
-        <Skull position={[-2.75, 0, 2.8]} rotation={[0, 1.1, 0]} />
+        <RigidBody type='fixed'>
+            <Skull position={[-2.75, 0, 2.8]} rotation={[0, 1.1, 0]} />
+        </RigidBody>
+        <RigidBody type='fixed'>
+            <Bench position={[7, 0, 3]} rotation={[0, -0.3, 0]} />
+        </RigidBody>
+        <RigidBody type='fixed'>
+            <Bone position={[5.8, 0, 3]} rotation={[0, -0.8, 0]} />
+        </RigidBody>
+        <RigidBody type='fixed'>
+            <Coffin position={[-7, 0, 8]} rotation={[0, 1.2, 0]} />
+        </RigidBody>
+
         <Pumpkin position={[9, 0, -1]} />
-        <Bench position={[7, 0, 3]} rotation={[0, -0.3, 0]} />
-        <Bone position={[5.8, 0, 3]} rotation={[0, -0.8, 0]} />
-        <Coffin position={[-7, 0, 8]} rotation={[0, 1.2, 0]} />
     </group>
 }
 
@@ -133,7 +146,7 @@ function BlockEmpty({ position = [0, 0, 0]}) {
     </group>
 }
 
-function Decor({ side = 'left', count = 3, types = [Tree, Pumpkin, Grave, Bone] }) {
+function Decor({ side = 'left', count = 3, types = [Tree, Pumpkin, Grave, Bone, Skull] }) {
     const blocks = useMemo(() => {
         const blocks = []
         let typeIndex = 0

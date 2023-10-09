@@ -55,12 +55,14 @@ export function Path(props) {
 
     return (
         <group {...props}>
-            <mesh
-                geometry={nodes[pathType].geometry}
-                material={materials.HalloweenBits}
-                receiveShadow
-                castShadow
-            />
+            <RigidBody type='fixed'>
+                <mesh
+                    geometry={nodes[pathType].geometry}
+                    material={materials.HalloweenBits}
+                    receiveShadow
+                    castShadow
+                />
+            </RigidBody>
         </group>
     )
 }

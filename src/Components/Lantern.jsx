@@ -1,4 +1,5 @@
 import { Sparkles, useGLTF, useHelper } from "@react-three/drei"
+import { RigidBody } from "@react-three/rapier"
 import { useControls } from "leva"
 import { useEffect } from "react"
 import { useRef } from "react"
@@ -18,12 +19,14 @@ export function Lantern(props) {
 
     return (
         <group {...props}>
-            <mesh
-                geometry={nodes.post_lantern.geometry}
-                material={materials.HalloweenBits}
-                castShadow
-                receiveShadow
-            />
+            <RigidBody type='fixed'>
+                <mesh
+                    geometry={nodes.post_lantern.geometry}
+                    material={materials.HalloweenBits}
+                    castShadow
+                    receiveShadow
+                />
+            </RigidBody>
             <mesh
                 geometry={nodes.post_lantern_lantern.geometry}
                 material={materials.HalloweenBits}
