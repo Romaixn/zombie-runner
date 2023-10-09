@@ -1,7 +1,7 @@
 import { useGLTF } from "@react-three/drei"
 
 export function Bone(props) {
-    const random = Math.floor(Math.random() * 4) + 1
+    const random = Math.floor(Math.random() * 3) + 1
     let boneType
 
     switch(random) {
@@ -13,9 +13,6 @@ export function Bone(props) {
             break
         case 3:
             boneType = 'bone_C'
-            break
-        case 4:
-            boneType = 'ribcage'
             break
         default:
             boneType = 'bone_A'

@@ -133,7 +133,7 @@ function BlockEmpty({ position = [0, 0, 0]}) {
     </group>
 }
 
-function Decor({ side = 'left', count = 3, types = [Tree, Pumpkin, Grave] }) {
+function Decor({ side = 'left', count = 3, types = [Tree, Pumpkin, Grave, Bone] }) {
     const blocks = useMemo(() => {
         const blocks = []
         let typeIndex = 0

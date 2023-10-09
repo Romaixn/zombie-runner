@@ -1,4 +1,4 @@
-import { Environment, Html, KeyboardControls, OrbitControls, Stars, useHelper } from '@react-three/drei'
+import { Environment, KeyboardControls, Stars, useHelper, useKeyboardControls } from '@react-three/drei'
 import { Skeleton } from './Components/Characters/Zombie'
 import { Physics } from '@react-three/rapier'
 import { Level } from './Level'
@@ -8,20 +8,22 @@ import { useControls } from 'leva'
 import { useEffect } from 'react'
 import useGame from './stores/useGame'
 import Ecctrl from 'ecctrl'
+import { useMemo } from 'react'
 
 export function Game() {
-    const keyboardMap = [
-        { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
+    const keyboardMap = useMemo(() => [
+        { name: 'forward', keys: ['ArrowUp', 'KeyW', 'KeyZ'] },
         { name: 'backward', keys: ['ArrowDown', 'KeyS'] },
-        { name: 'leftward', keys: ['ArrowLeft', 'KeyA'] },
+        { name: 'leftward', keys: ['ArrowLeft', 'KeyA', 'KeyQ'] },
         { name: 'rightward', keys: ['ArrowRight', 'KeyD'] },
         { name: 'jump', keys: ['Space'] },
         { name: 'run', keys: ['Shift'] },
-    ]
+        { name: 'mute', keys: ['KeyM'] },
+    ], [])
 
-    const audio = new Audio('/audio/background.wav')
-    audio.loop = true
-    const toggleAudio = (play = true) => {
+    const audio = new THREE.Audio(new THREE.AudioListener())
+
+    const toggleAudio = (play) => {
         if(play) {
             audio.play()
             return
@@ -43,12 +45,14 @@ export function Game() {
         },
     })
 
-    const phase = useGame((state) => state.phase)
-
     useEffect(() => {
-        if(phase === 'playing') {
-            toggleAudio()
-        }
+        const audioLoader = new THREE.AudioLoader()
+        audioLoader.load('/audio/background.wav', (buffer) => {
+            audio.setBuffer(buffer)
+            audio.setLoop(true)
+            audio.setVolume(0.2)
+            audio.play()
+        })
 
         const unsuscribeToggleSound = useGame.subscribe(
             (state) => state.soundPlaying,
@@ -60,7 +64,7 @@ export function Game() {
         return () => {
             unsuscribeToggleSound()
         }
-    }, [phase])
+    }, [])
 
     return (
         <>

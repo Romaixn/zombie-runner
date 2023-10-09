@@ -8,7 +8,6 @@ export function LoadingScreen() {
     const phase = useGame((state) => state.phase)
 
     return (
-        // <div className={`loadingScreen ${phase === 'playing' ? "loadingScreen--started" : ""}`}>
         <div className={css(phase === 'playing' && {
             opacity: 0,
             pointerEvents: 'none'
