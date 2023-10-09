@@ -1,15 +1,19 @@
 import { useGLTF } from "@react-three/drei";
+import { RigidBody } from "@react-three/rapier";
 
 export function Floor(props) {
     const { nodes, materials } = useGLTF('/gltf/floor_dirt.gltf')
 
     return (
         <group {...props}>
-            <mesh
-                geometry={nodes.floor_dirt.geometry}
-                material={materials.HalloweenBits}
-                receiveShadow
-            />
+            <RigidBody type='fixed'>
+
+                <mesh
+                    geometry={nodes.floor_dirt.geometry}
+                    material={materials.HalloweenBits}
+                    receiveShadow
+                />
+            </RigidBody>
         </group>
     )
 }

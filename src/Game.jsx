@@ -7,7 +7,7 @@ import * as THREE from 'three'
 import { useControls } from 'leva'
 import { useEffect } from 'react'
 import useGame from './stores/useGame'
-// import Ecctrl from 'ecctrl'
+import Ecctrl from 'ecctrl'
 
 export function Game() {
     const keyboardMap = [
@@ -27,7 +27,7 @@ export function Game() {
             return
         }
 
-        audio.pause()
+        audio.stop()
     }
 
     const light = useRef()
@@ -36,7 +36,7 @@ export function Game() {
 
     const { levelCount } = useControls('level', {
         levelCount: {
-            value: 5,
+            value: 10,
             min: 1,
             max: 50,
             step: 1,
@@ -64,8 +64,6 @@ export function Game() {
 
     return (
         <>
-            <OrbitControls />
-
             <directionalLight
                 ref={light}
                 castShadow
@@ -81,13 +79,14 @@ export function Game() {
             />
             <Environment preset='night' />
             <Stars radius={50} count={800} fade speed={1} />
-            <Physics timeStep='vary'>
-                <Level count={levelCount} />
+            <Physics debug timeStep='vary'>
                 <KeyboardControls map={keyboardMap}>
-                    {/* <Ecctrl> */}
-                        <Skeleton position={[0, 0, 4]} />
-                    {/* </Ecctrl> */}
+                    <Ecctrl position={[0, 0, 4]} debug>
+                        <Skeleton position={[0, -0.7, 0]} userData={{ camExcludeCollision: true }} />
+                    </Ecctrl>
                 </KeyboardControls>
+
+                <Level count={levelCount} />
             </Physics>
         </>
     )
