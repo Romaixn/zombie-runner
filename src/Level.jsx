@@ -1,15 +1,15 @@
 import { useMemo } from "react"
-import { Floor, Path } from "./Components/Floor"
+import { Floor, FloorGrave, Path } from "./Components/Floor"
 import { Fence, FenceBroken, Gate } from "./Components/Fence"
 import { Lantern, LanternStanding } from "./Components/Lantern"
 import { Tree } from "./Components/Tree"
 import { Crypt } from "./Crypt"
 import { Pumpkin } from "./Components/Pumpkin"
 import { Grave } from "./Components/Grave"
-import { Bench } from "./Components/Bench"
+import { Bench, BenchEmpty } from "./Components/Bench"
 import { Coffin } from "./Components/Coffin"
 import { Skull } from "./Components/Skull"
-import { Bone } from "./Components/Bone"
+import { Bone, Ribcage } from "./Components/Bone"
 import { CuboidCollider, RigidBody } from "@react-three/rapier"
 
 function BlockStart({ position = [0, 0, 0] }) {
@@ -48,14 +48,18 @@ function BlockStart({ position = [0, 0, 0] }) {
         <Path position={[-1, 0, 9]} />
 
         <Floor position={[4, 0, 8]} />
-        <Floor position={[8, 0, 8]} />
+        <Path position={[3, 0, 8]} />
+        <Path position={[5, 0, 8]} />
 
-        <RigidBody type='fixed'>
+        <Floor position={[8, 0, 8]} />
+        <Path position={[7, 0, 8]} />
+
+        <RigidBody type='fixed' friction={1}>
             <FenceBroken position={[-8, 0, 1]} />
             <Fence position={[-4, 0, 1]} />
         </RigidBody>
         <Gate position={[0, 0, 1]} />
-        <RigidBody type='fixed'>
+        <RigidBody type='fixed' friction={1}>
             <Fence position={[4, 0, 1]} />
             <Fence position={[8, 0, 1]} />
         </RigidBody>
@@ -64,19 +68,35 @@ function BlockStart({ position = [0, 0, 0] }) {
         <Fence position={[4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />
         <Fence position={[-4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />
 
-        <Lantern position={[-3.5, 0, 3]} rotation={[0, 0.5, 0]} />
+
         <RigidBody type='fixed'>
+            <Grave position={[-8, 0, 2]} />
+        </RigidBody>
+        <RigidBody colliders='hull'>
+            <Ribcage position={[-6, 0.2, 3]} />
+        </RigidBody>
+        <Lantern position={[-3.5, 0, 3]} rotation={[0, 0.5, 0]} />
+        <RigidBody colliders='hull'>
             <Skull position={[-2.75, 0, 2.8]} rotation={[0, 1.1, 0]} />
         </RigidBody>
-        <RigidBody type='fixed'>
-            <Bench position={[7, 0, 3]} rotation={[0, -0.3, 0]} />
-        </RigidBody>
-        <RigidBody type='fixed'>
-            <Bone position={[5.8, 0, 3]} rotation={[0, -0.8, 0]} />
+        <RigidBody colliders='hull'>
+            <Pumpkin position={[-3.75, 0.2, 4]} rotation={[0, 1.1, 0]} />
         </RigidBody>
         <RigidBody type='fixed'>
             <Coffin position={[-7, 0, 8]} rotation={[0, 1.2, 0]} />
         </RigidBody>
+
+        <RigidBody type='fixed'>
+            <Bench position={[7, 0, 3]} rotation={[0, -0.3, 0]} />
+        </RigidBody>
+        <Bone position={[5.8, 0.1, 3]} rotation={[0, -0.8, 0]} />
+        <RigidBody type='fixed'>
+            <BenchEmpty position={[9, 0, 8]} rotation={[0, Math.PI / 2, 0]} />
+        </RigidBody>
+        <RigidBody type='fixed'>
+            <LanternStanding position={[9, 0, 9.5]} rotation={[0, Math.PI / 2, 0]} />
+        </RigidBody>
+
 
         <Pumpkin position={[9, 0, -1]} />
     </group>
@@ -128,8 +148,8 @@ function BlockEnd({ position = [0, 0, 0] }) {
 }
 
 function BlockEmpty({ position = [0, 0, 0]}) {
-    const isRightFenceBroken = Math.random() < 0.5
-    const isLeftFenceBroken = Math.random() < 0.5
+    const isRightFenceBroken = Math.random() < 0.3
+    const isLeftFenceBroken = Math.random() < 0.3
 
     return <group position={position}>
         <Floor position={[-8, 0, 0]} />
@@ -146,7 +166,7 @@ function BlockEmpty({ position = [0, 0, 0]}) {
     </group>
 }
 
-function Decor({ side = 'left', count = 3, types = [Tree, Pumpkin, Grave, Bone, Skull] }) {
+function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, Bone, Skull] }) {
     const blocks = useMemo(() => {
         const blocks = []
         let typeIndex = 0
@@ -185,7 +205,16 @@ function Decor({ side = 'left', count = 3, types = [Tree, Pumpkin, Grave, Bone, 
 function Bounds({ length = 1}) {
     return <>
         <RigidBody type="fixed">
-            <CuboidCollider args={[2, 0.1, 2 * length]} position={[0, 0, 0]} />
+            <CuboidCollider args={[0.2, 1.2, length * 2 + 0.7]} position={[-4, 1.1, -length * 2]} friction={1} />
+            <CuboidCollider args={[0.2, 1.2, length * 2 + 0.7]} position={[4, 1.1, -length * 2]} friction={1} />
+
+            <CuboidCollider args={[3.7, 0.1, length * 2]} position={[0, 0, -length * 2]} />
+
+            <CuboidCollider args={[10, 1.5, 0.2]} position={[0, 1.5, 10.2]} friction={1} />
+            <CuboidCollider args={[0.2, 1.5, 5]} position={[10.2, 1.5, 5]} friction={1} />
+            <CuboidCollider args={[0.2, 1.5, 5]} position={[-10.2, 1.5, 5]} friction={1} />
+
+            <CuboidCollider args={[9.9, 0.1, 5]} position={[0, 0, 5]} />
         </RigidBody>
     </>
 }

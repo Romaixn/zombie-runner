@@ -1,4 +1,4 @@
-import { Environment, KeyboardControls, Stars, useHelper, useKeyboardControls } from '@react-three/drei'
+import { Environment, KeyboardControls, OrbitControls, Stars, useHelper, useKeyboardControls } from '@react-three/drei'
 import { Skeleton } from './Components/Characters/Zombie'
 import { Physics } from '@react-three/rapier'
 import { Level } from './Level'
@@ -77,7 +77,8 @@ export function Game() {
             />
             <Environment preset='night' />
             <Stars radius={50} count={800} fade speed={1} />
-            <Physics debug timeStep='vary'>
+            {/* <OrbitControls /> */}
+            <Physics timeStep='vary'>
                 <KeyboardControls map={keyboardMap}>
                     <Ecctrl position={[0, 0, 4]}>
                         <Skeleton position={[0, -0.7, 0]} userData={{ camExcludeCollision: true }} />

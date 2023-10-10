@@ -46,7 +46,7 @@ export function Lantern(props) {
                 color={'#BF8838'}
             />
             <Sparkles
-                count={5}
+                count={Math.floor(Math.random() * 8) + 1}
                 size={5}
                 speed={1.5}
                 position={[0, 2, 1]}
@@ -78,7 +78,7 @@ export function LanternStanding(props) {
                 color={'#BF8838'}
             />
             <Sparkles
-                count={4}
+                count={Math.floor(Math.random() * 6) + 1}
                 size={5}
                 speed={1.5}
                 position={[0, 0.5, 0]}

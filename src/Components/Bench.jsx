@@ -35,4 +35,20 @@ export function Bench(props) {
     )
 }
 
+export function BenchEmpty(props) {
+    const { nodes, materials } = useGLTF(`/gltf/bench.gltf`)
+
+    return (
+        <group {...props}>
+            <mesh
+                geometry={nodes.bench.geometry}
+                material={materials.HalloweenBits}
+                receiveShadow
+                castShadow
+            />
+        </group>
+    )
+}
+
 useGLTF.preload('/gltf/bench_decorated.gltf')
+useGLTF.preload('/gltf/bench.gltf')
