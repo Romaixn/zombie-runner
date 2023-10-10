@@ -10,7 +10,7 @@ import { Bench } from "./Components/Bench"
 import { Coffin } from "./Components/Coffin"
 import { Skull } from "./Components/Skull"
 import { Bone } from "./Components/Bone"
-import { RigidBody } from "@react-three/rapier"
+import { CuboidCollider, RigidBody } from "@react-three/rapier"
 
 function BlockStart({ position = [0, 0, 0] }) {
     return <group position={position}>
@@ -182,6 +182,14 @@ function Decor({ side = 'left', count = 3, types = [Tree, Pumpkin, Grave, Bone, 
     </>
 }
 
+function Bounds({ length = 1}) {
+    return <>
+        <RigidBody type="fixed">
+            <CuboidCollider args={[2, 0.1, 2 * length]} position={[0, 0, 0]} />
+        </RigidBody>
+    </>
+}
+
 export function Level({ count = 2, seed = 0 }) {
     const blocks = useMemo(() => {
         const blocks = []
@@ -197,5 +205,7 @@ export function Level({ count = 2, seed = 0 }) {
         {blocks.map((Block, index) => <Block key={index} position={[0, 0, -(index + 1) * 4 ]} />)}
 
         <BlockEnd position={[0, 0, -(count + 1) * 4 ]} />
+
+        <Bounds length={count + 2} />
     </>
 }

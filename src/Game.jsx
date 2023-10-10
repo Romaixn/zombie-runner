@@ -11,6 +11,9 @@ import Ecctrl from 'ecctrl'
 import { useMemo } from 'react'
 
 export function Game() {
+    const blocksCount = useGame((state) => state.blocksCount)
+    const blocksSeed = useGame((state) => state.blocksSeed)
+
     const keyboardMap = useMemo(() => [
         { name: 'forward', keys: ['ArrowUp', 'KeyW', 'KeyZ'] },
         { name: 'backward', keys: ['ArrowDown', 'KeyS'] },
@@ -35,15 +38,6 @@ export function Game() {
     const light = useRef()
     const { lightHelper } = useControls({ lightHelper: false })
     useHelper(lightHelper && light, THREE.DirectionalLightHelper, 1)
-
-    const { levelCount } = useControls('level', {
-        levelCount: {
-            value: 10,
-            min: 1,
-            max: 50,
-            step: 1,
-        },
-    })
 
     useEffect(() => {
         const audioLoader = new THREE.AudioLoader()
@@ -85,12 +79,12 @@ export function Game() {
             <Stars radius={50} count={800} fade speed={1} />
             <Physics debug timeStep='vary'>
                 <KeyboardControls map={keyboardMap}>
-                    <Ecctrl position={[0, 0, 4]} debug>
+                    <Ecctrl position={[0, 0, 4]}>
                         <Skeleton position={[0, -0.7, 0]} userData={{ camExcludeCollision: true }} />
                     </Ecctrl>
                 </KeyboardControls>
 
-                <Level count={levelCount} />
+                <Level count={blocksCount} seed={blocksSeed} />
             </Physics>
         </>
     )

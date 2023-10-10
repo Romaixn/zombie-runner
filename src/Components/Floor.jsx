@@ -6,14 +6,11 @@ export function Floor(props) {
 
     return (
         <group {...props}>
-            <RigidBody type='fixed'>
-
-                <mesh
-                    geometry={nodes.floor_dirt.geometry}
-                    material={materials.HalloweenBits}
-                    receiveShadow
-                />
-            </RigidBody>
+            <mesh
+                geometry={nodes.floor_dirt.geometry}
+                material={materials.HalloweenBits}
+                receiveShadow
+            />
         </group>
     )
 }
@@ -55,14 +52,12 @@ export function Path(props) {
 
     return (
         <group {...props}>
-            <RigidBody type='fixed'>
-                <mesh
-                    geometry={nodes[pathType].geometry}
-                    material={materials.HalloweenBits}
-                    receiveShadow
-                    castShadow
-                />
-            </RigidBody>
+            <mesh
+                geometry={nodes[pathType].geometry}
+                material={materials.HalloweenBits}
+                receiveShadow
+                castShadow
+            />
         </group>
     )
 }
