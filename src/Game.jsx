@@ -8,19 +8,19 @@ import { useControls } from 'leva'
 import { useEffect } from 'react'
 import useGame from './stores/useGame'
 import Ecctrl from 'ecctrl'
+import { Perf } from 'r3f-perf'
 
 export function Game() {
     const blocksCount = useGame((state) => state.blocksCount)
     const blocksSeed = useGame((state) => state.blocksSeed)
 
     const keyboardMap = [
-        { name: 'forward', keys: ['ArrowUp', 'KeyW', 'KeyZ'] },
+        { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
         { name: 'backward', keys: ['ArrowDown', 'KeyS'] },
-        { name: 'leftward', keys: ['ArrowLeft', 'KeyA', 'KeyQ'] },
+        { name: 'leftward', keys: ['ArrowLeft', 'KeyA'] },
         { name: 'rightward', keys: ['ArrowRight', 'KeyD'] },
         { name: 'jump', keys: ['Space'] },
-        { name: 'run', keys: ['Shift'] },
-        { name: 'mute', keys: ['KeyM'] },
+        { name: 'run', keys: ['Shift'] }
     ]
 
     const audio = new THREE.Audio(new THREE.AudioListener())
@@ -77,9 +77,10 @@ export function Game() {
             <Environment preset='night' />
             <Stars radius={50} count={800} fade speed={1} />
             {/* <OrbitControls /> */}
-            <Physics timeStep='vary'>
+            <Perf position='top-left' />
+            <Physics debug timeStep='vary'>
                 <KeyboardControls map={keyboardMap}>
-                    <Ecctrl position={[0, 0, 4]}>
+                    <Ecctrl debug position={[0, 0, 4]}>
                         <Skeleton position={[0, -0.7, 0]} userData={{ camExcludeCollision: true }} />
                     </Ecctrl>
                 </KeyboardControls>
