@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import useGame from './stores/useGame'
 import Ecctrl from 'ecctrl'
 import { Perf } from 'r3f-perf'
+import { Lights } from './Lights'
 
 export function Game() {
     const blocksCount = useGame((state) => state.blocksCount)
@@ -34,10 +35,6 @@ export function Game() {
         audio.stop()
     }
 
-    const light = useRef()
-    const { lightHelper } = useControls({ lightHelper: false })
-    useHelper(lightHelper && light, THREE.DirectionalLightHelper, 1)
-
     useEffect(() => {
         const audioLoader = new THREE.AudioLoader()
         audioLoader.load('/audio/background.wav', (buffer) => {
@@ -61,26 +58,14 @@ export function Game() {
 
     return (
         <>
-            <directionalLight
-                ref={light}
-                castShadow
-                position={ [ 4, 4, 4 ] }
-                intensity={ 0.6 }
-                shadow-mapSize={ [ 1024, 1024 ] }
-                shadow-camera-near={ 1 }
-                shadow-camera-far={ 13 }
-                shadow-camera-top={ 10 }
-                shadow-camera-right={ 10 }
-                shadow-camera-bottom={ - 10 }
-                shadow-camera-left={ - 10 }
-            />
             <Environment preset='night' />
             <Stars radius={50} count={800} fade speed={1} />
             {/* <OrbitControls /> */}
             <Perf position='top-left' />
-            <Physics debug timeStep='vary'>
+            <Physics timeStep='vary'>
                 <KeyboardControls map={keyboardMap}>
-                    <Ecctrl debug position={[0, 0, 4]}>
+                    <Lights />
+                    <Ecctrl debug followLight position={[0, 0, 4]}>
                         <Skeleton position={[0, -0.7, 0]} userData={{ camExcludeCollision: true }} />
                     </Ecctrl>
                 </KeyboardControls>

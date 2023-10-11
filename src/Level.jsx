@@ -80,7 +80,7 @@ function BlockStart({ position = [0, 0, 0] }) {
             <Skull position={[-2.75, 0, 2.8]} rotation={[0, 1.1, 0]} />
         </RigidBody>
         <RigidBody colliders='hull'>
-            <Pumpkin position={[-3.75, 0.2, 4]} rotation={[0, 1.1, 0]} />
+            <Pumpkin position={[-3.75, 0.3, 4]} rotation={[0, 1.1, 0]} />
         </RigidBody>
         <RigidBody type='fixed'>
             <Coffin position={[-7, 0, 8]} rotation={[0, 1.2, 0]} />
@@ -219,11 +219,18 @@ function Bounds({ length = 1}) {
     </>
 }
 
-export function Level({ count = 2, seed = 0 }) {
+export function Level({ count = 2, types = [BlockEmpty], seed = 0 }) {
     const blocks = useMemo(() => {
         const blocks = []
+        let typeIndex = 0
         for (let i = 0; i < count; i++) {
-            blocks.push(BlockEmpty)
+            const type = types[Math.floor(Math.random() * types.length)]
+            blocks.push(type)
+        }
+
+        typeIndex++
+        if (typeIndex >= types.length) {
+            typeIndex = 0
         }
 
         return blocks
