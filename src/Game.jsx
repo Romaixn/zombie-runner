@@ -8,13 +8,12 @@ import { useControls } from 'leva'
 import { useEffect } from 'react'
 import useGame from './stores/useGame'
 import Ecctrl from 'ecctrl'
-import { useMemo } from 'react'
 
 export function Game() {
     const blocksCount = useGame((state) => state.blocksCount)
     const blocksSeed = useGame((state) => state.blocksSeed)
 
-    const keyboardMap = useMemo(() => [
+    const keyboardMap = [
         { name: 'forward', keys: ['ArrowUp', 'KeyW', 'KeyZ'] },
         { name: 'backward', keys: ['ArrowDown', 'KeyS'] },
         { name: 'leftward', keys: ['ArrowLeft', 'KeyA', 'KeyQ'] },
@@ -22,7 +21,7 @@ export function Game() {
         { name: 'jump', keys: ['Space'] },
         { name: 'run', keys: ['Shift'] },
         { name: 'mute', keys: ['KeyM'] },
-    ], [])
+    ]
 
     const audio = new THREE.Audio(new THREE.AudioListener())
 

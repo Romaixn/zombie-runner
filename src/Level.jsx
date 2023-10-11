@@ -3,7 +3,7 @@ import { Floor, FloorGrave, Path } from "./Components/Floor"
 import { Fence, FenceBroken, Gate } from "./Components/Fence"
 import { Lantern, LanternStanding } from "./Components/Lantern"
 import { Tree } from "./Components/Tree"
-import { Crypt } from "./Crypt"
+import { Crypt } from "./Components/Crypt"
 import { Pumpkin } from "./Components/Pumpkin"
 import { Grave } from "./Components/Grave"
 import { Bench, BenchEmpty } from "./Components/Bench"
@@ -205,8 +205,8 @@ function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, 
 function Bounds({ length = 1}) {
     return <>
         <RigidBody type="fixed">
-            <CuboidCollider args={[0.2, 1.2, length * 2 + 0.7]} position={[-4, 1.1, -length * 2]} friction={1} />
-            <CuboidCollider args={[0.2, 1.2, length * 2 + 0.7]} position={[4, 1.1, -length * 2]} friction={1} />
+            <CuboidCollider args={[0.25, 1.2, length * 2 + 0.7]} position={[-4, 1.1, -length * 2]} friction={1} />
+            <CuboidCollider args={[0.25, 1.2, length * 2 + 0.7]} position={[4, 1.1, -length * 2]} friction={1} />
 
             <CuboidCollider args={[3.7, 0.1, length * 2]} position={[0, 0, -length * 2]} />
 
