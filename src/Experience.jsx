@@ -19,9 +19,9 @@ function Experience() {
                     far: 200,
                     position: [ 2, 5, 20 ],
                 } }
-                onPointerDown={(e) => {
-                    e.target.requestPointerLock()
-                }}
+                // onPointerDown={(e) => {
+                //     e.target.requestPointerLock()
+                // }}
             >
                 <color args={ [ '#383B43' ] } attach="background" />
                 <fog attach='fog' args={['#383B43', 1, 30]} />

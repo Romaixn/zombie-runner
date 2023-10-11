@@ -77,12 +77,12 @@ export function Game() {
             />
             <Environment preset='night' />
             <Stars radius={50} count={800} fade speed={1} />
-            {/* <OrbitControls /> */}
-            <Physics timeStep='vary'>
+            <OrbitControls />
+            <Physics debug timeStep='vary'>
                 <KeyboardControls map={keyboardMap}>
-                    <Ecctrl position={[0, 0, 4]}>
+                    {/* <Ecctrl position={[0, 0, 4]}> */}
                         <Skeleton position={[0, -0.7, 0]} userData={{ camExcludeCollision: true }} />
-                    </Ecctrl>
+                    {/* </Ecctrl> */}
                 </KeyboardControls>
 
                 <Level count={blocksCount} seed={blocksSeed} />
