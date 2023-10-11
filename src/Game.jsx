@@ -1,10 +1,8 @@
 import { Environment, KeyboardControls, OrbitControls, Stars, useHelper, useKeyboardControls } from '@react-three/drei'
-import { Skeleton } from './Components/Characters/Zombie'
+import { SkeletonMage, SkeletonMinion } from './Components/Characters/Skeleton'
 import { Physics } from '@react-three/rapier'
 import { Level } from './Level'
-import { useRef } from 'react'
 import * as THREE from 'three'
-import { useControls } from 'leva'
 import { useEffect } from 'react'
 import useGame from './stores/useGame'
 import Ecctrl from 'ecctrl'
@@ -65,8 +63,8 @@ export function Game() {
             <Physics timeStep='vary'>
                 <KeyboardControls map={keyboardMap}>
                     <Lights />
-                    <Ecctrl debug followLight position={[0, 0, 4]}>
-                        <Skeleton position={[0, -0.7, 0]} userData={{ camExcludeCollision: true }} />
+                    <Ecctrl followLight camInitDis={-8} camMaxDis={-8}>
+                        <SkeletonMage position={[0, -0.7, 0]} userData={{ camExcludeCollision: true }} />
                     </Ecctrl>
                 </KeyboardControls>
 

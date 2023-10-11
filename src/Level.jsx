@@ -11,6 +11,9 @@ import { Coffin } from "./Components/Coffin"
 import { Skull } from "./Components/Skull"
 import { Bone, Ribcage } from "./Components/Bone"
 import { CuboidCollider, RigidBody } from "@react-three/rapier"
+import { Shrine } from "./Components/Shrine"
+import { Float, Text } from "@react-three/drei"
+import * as THREE from 'three'
 
 function BlockStart({ position = [0, 0, 0] }) {
     return <group position={position}>
@@ -58,16 +61,30 @@ function BlockStart({ position = [0, 0, 0] }) {
             <FenceBroken position={[-8, 0, 1]} />
             <Fence position={[-4, 0, 1]} />
         </RigidBody>
+
+        <Float floatIntensity={0.75} rotationIntensity={0.75}>
+            <Text
+                font='/fonts/shlop.otf'
+                material={
+                    new THREE.MeshStandardMaterial({
+                        color: '#D6F599',
+                        emissive: '#D6F599',
+                        emissiveIntensity: 1,
+                    })
+                }
+                scale={1.5}
+                position={[0, 5, 1]}
+            >Play</Text>
+        </Float>
         <Gate position={[0, 0, 1]} />
+
         <RigidBody type='fixed' friction={1}>
             <Fence position={[4, 0, 1]} />
             <Fence position={[8, 0, 1]} />
         </RigidBody>
 
-
         <Fence position={[4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />
         <Fence position={[-4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />
-
 
         <RigidBody type='fixed'>
             <Grave position={[-8, 0, 2]} />
@@ -87,6 +104,9 @@ function BlockStart({ position = [0, 0, 0] }) {
         </RigidBody>
 
         <RigidBody type='fixed'>
+            <Shrine position={[3.5, 0, 2.8]} rotation={[0, -0.6, 0]} />
+        </RigidBody>
+        <RigidBody type='fixed'>
             <Bench position={[7, 0, 3]} rotation={[0, -0.3, 0]} />
         </RigidBody>
         <Bone position={[5.8, 0.1, 3]} rotation={[0, -0.8, 0]} />
@@ -98,7 +118,10 @@ function BlockStart({ position = [0, 0, 0] }) {
         </RigidBody>
 
 
-        <Pumpkin position={[9, 0, -1]} />
+        <Lantern position={[6, 0, -1]} rotation={[0, -Math.PI / 2 + 0.5, 0]} />
+        <Tree position={[9, 0, -1.5]} />
+        <Tree position={[-6, 0, -1]} />
+        <Pumpkin position={[-9, 0, -0.5]} />
     </group>
 }
 
@@ -205,14 +228,14 @@ function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, 
 function Bounds({ length = 1}) {
     return <>
         <RigidBody type="fixed">
-            <CuboidCollider args={[0.25, 1.2, length * 2 + 0.7]} position={[-4, 1.1, -length * 2]} friction={1} />
-            <CuboidCollider args={[0.25, 1.2, length * 2 + 0.7]} position={[4, 1.1, -length * 2]} friction={1} />
+            <CuboidCollider args={[0.25, 2, length * 2 + 0.7]} position={[-4, 1.5, -length * 2]} friction={1} />
+            <CuboidCollider args={[0.25, 2, length * 2 + 0.7]} position={[4, 1.5, -length * 2]} friction={1} />
 
             <CuboidCollider args={[3.7, 0.1, length * 2]} position={[0, 0, -length * 2]} />
 
-            <CuboidCollider args={[10, 1.5, 0.2]} position={[0, 1.5, 10.2]} friction={1} />
-            <CuboidCollider args={[0.2, 1.5, 5]} position={[10.2, 1.5, 5]} friction={1} />
-            <CuboidCollider args={[0.2, 1.5, 5]} position={[-10.2, 1.5, 5]} friction={1} />
+            <CuboidCollider args={[10, 2, 0.2]} position={[0, 1.5, 10.2]} friction={1} />
+            <CuboidCollider args={[0.2, 2, 5]} position={[10.2, 1.5, 5]} friction={1} />
+            <CuboidCollider args={[0.2, 2, 5]} position={[-10.2, 1.5, 5]} friction={1} />
 
             <CuboidCollider args={[9.9, 0.1, 5]} position={[0, 0, 5]} />
         </RigidBody>
