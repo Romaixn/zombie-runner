@@ -11,11 +11,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-three/drei": "^9.88.0",
+    "@react-three/drei": "^9.88.2",
     "@react-three/fiber": "^8.14.5",
     "@react-three/postprocessing": "^2.15.1",
     "@react-three/rapier": "^1.1.1",
-    "ecctrl": "^1.0.30",
+    "ecctrl": "^1.0.32",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "three": "^0.157.0",
@@ -39,9 +39,9 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "vite": "^4.4.11",
-    "vite-plugin-glsl": "^1.1.2",
     "leva": "^0.9.35",
-    "r3f-perf": "^7.1.2"
+    "r3f-perf": "^7.1.2",
+    "vite": "^4.4.11",
+    "vite-plugin-glsl": "^1.1.2"
   }
 }
