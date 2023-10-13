@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@nodetoy/react-nodetoy':
+    specifier: ^0.1.24
+    version: 0.1.24(@react-three/fiber@8.14.5)(react-dom@18.2.0)(react@18.2.0)(three@0.157.0)
   '@react-three/drei':
     specifier: ^9.88.2
     version: 9.88.2(@react-three/fiber@8.14.5)(@types/three@0.157.0)(react-dom@18.2.0)(react@18.2.0)(three@0.157.0)
@@ -1069,6 +1072,40 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
     dev: true
+
+  /@nodetoy/react-nodetoy@0.1.24(@react-three/fiber@8.14.5)(react-dom@18.2.0)(react@18.2.0)(three@0.157.0):
+    resolution: {integrity: sha512-zs+BspfPNJCU2K3mn1ruc4kN0bcN+WGB04BMmQBIU6hN8/d/AHXawm/1tdAm+qZEQLUFtFqiyhOHPVdAa7y5mQ==}
+    peerDependencies:
+      '@react-three/fiber': '>=8'
+      react: '>=18'
+      react-dom: '>=18'
+      three: '>=0.143.0'
+    dependencies:
+      '@nodetoy/shared-nodetoy': 0.2.21(three@0.157.0)
+      '@nodetoy/three-nodetoy': 0.1.36(three@0.157.0)
+      '@react-three/fiber': 8.14.5(react-dom@18.2.0)(react@18.2.0)(three@0.157.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      three: 0.157.0
+    dev: false
+
+  /@nodetoy/shared-nodetoy@0.2.21(three@0.157.0):
+    resolution: {integrity: sha512-itFQATEfWmbuYSBCHdVw6qY1mPME4JQ4jFEtbspgI+Dk7if4f7WXuNit2wFgLFUXPQ7c1UPUXZsJTBxVFDs6SA==}
+    peerDependencies:
+      three: '>=0.143.0'
+    dependencies:
+      eventemitter3: 4.0.7
+      three: 0.157.0
+    dev: false
+
+  /@nodetoy/three-nodetoy@0.1.36(three@0.157.0):
+    resolution: {integrity: sha512-qxsZucryVes7LeB/ezW/dFeESicEk2DrrjwHPwzbXXXKaaCS7/8OBCay8ZzoilVYYoZpeoNNu13KSwx8M6sPmQ==}
+    peerDependencies:
+      three: '>=0.143.0'
+    dependencies:
+      '@nodetoy/shared-nodetoy': 0.2.21(three@0.157.0)
+      three: 0.157.0
+    dev: false
 
   /@pandacss/config@0.15.5:
     resolution: {integrity: sha512-LotMXXW96v4t5vcealTO4cwlDUFMDcHAOQWkp4lulTWFnEJanqD01ioHfhn0eWrdEdRg0ssDMrbgDi0WpvVjsQ==}
@@ -3830,7 +3867,6 @@ packages:
 
   /eventemitter3@4.0.7:
     resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
-    dev: true
 
   /events@3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
