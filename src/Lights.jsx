@@ -1,5 +1,4 @@
 import { useHelper } from "@react-three/drei"
-import { useFrame } from "@react-three/fiber"
 import { useControls } from "leva"
 import { useRef } from "react"
 import * as THREE from "three"
@@ -12,6 +11,7 @@ export function Lights() {
     return (
         <directionalLight
             ref={light}
+            name="followLight"
             castShadow
             position={ [ 10, 10, 5 ] }
             intensity={ 0.6 }
