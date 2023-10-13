@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import { Floor, FloorGrave, Path } from "./Components/Floor"
+import { Floor, Path } from "./Components/Floor"
 import { Fence, FenceBroken, Gate } from "./Components/Fence"
 import { Lantern, LanternStanding } from "./Components/Lantern"
 import { Tree } from "./Components/Tree"
@@ -12,8 +12,9 @@ import { Skull } from "./Components/Skull"
 import { Bone, Ribcage } from "./Components/Bone"
 import { CuboidCollider, RigidBody } from "@react-three/rapier"
 import { Shrine } from "./Components/Shrine"
-import { Float, Text } from "@react-three/drei"
+import { Float, Sparkles, Text } from "@react-three/drei"
 import * as THREE from 'three'
+import { Portals } from "./Components/Portal"
 
 function BlockStart({ position = [0, 0, 0] }) {
     return <group position={position}>
@@ -170,7 +171,7 @@ function BlockEnd({ position = [0, 0, 0] }) {
     </group>
 }
 
-function BlockEmpty({ position = [0, 0, 0]}) {
+function Block({ special, position = [0, 0, 0]}) {
     const isRightFenceBroken = Math.random() < 0.3
     const isLeftFenceBroken = Math.random() < 0.3
 
@@ -178,6 +179,7 @@ function BlockEmpty({ position = [0, 0, 0]}) {
         <Floor position={[-8, 0, 0]} />
         <Floor position={[-4, 0, 0]} />
         <Floor position={[0, 0, 0]} />
+        {special && <Portals />}
         <Floor position={[4, 0, 0]} />
         <Floor position={[8, 0, 0]} />
 
@@ -208,7 +210,7 @@ function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, 
         }
 
         return blocks
-    }, [count, types])
+    }, [side, count, types])
 
     return <>
         {blocks.map((block, index) => {
@@ -242,26 +244,43 @@ function Bounds({ length = 1}) {
     </>
 }
 
-export function Level({ count = 2, types = [BlockEmpty], seed = 0 }) {
+export function Level({ count = 2, types = [Block], seed = 0 }) {
     const blocks = useMemo(() => {
         const blocks = []
         let typeIndex = 0
+        let specialIndex = 0
+
         for (let i = 0; i < count; i++) {
             const type = types[Math.floor(Math.random() * types.length)]
-            blocks.push(type)
+            let isSpecial = false
+
+            if (specialIndex % 3 === 1) {
+                isSpecial = true
+            }
+
+            blocks.push({ type, isSpecial })
+
+            typeIndex++
+            if (typeIndex >= types.length) {
+                typeIndex = 0
+            }
+            specialIndex++
         }
 
-        typeIndex++
-        if (typeIndex >= types.length) {
-            typeIndex = 0
-        }
 
         return blocks
-    }, [count, seed])
+    }, [count, types, seed])
 
     return <>
         <BlockStart />
-        {blocks.map((Block, index) => <Block key={index} position={[0, 0, -(index + 1) * 4 ]} />)}
+        {blocks.map((Block, index) => {
+            const { type: Type, isSpecial } = Block
+            return (
+                <Type key={index} special={isSpecial} position={[0, 0, -(index + 1) * 4 ]} />)}
+            )
+        }
+
+        <Sparkles size={6} position={[0, 1, -count * 4 / 2]} scale={[30, 10, -(count + 1) * 4]} />
 
         <BlockEnd position={[0, 0, -(count + 1) * 4 ]} />
 

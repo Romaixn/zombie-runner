@@ -11,7 +11,7 @@ export function Shrine(props) {
         case 2:
             shrineType = 'shrine_candles'
             break
-        case 2:
+        case 3:
             shrineType = 'plaque_candles'
             break
         default:

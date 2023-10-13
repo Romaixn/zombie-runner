@@ -65,7 +65,6 @@ export function FenceBroken(props) {
     )
 }
 
-
 useGLTF.preload('/gltf/fence_gate.gltf')
 useGLTF.preload('/gltf/fence.gltf')
 useGLTF.preload('/gltf/fence_broken.gltf')
