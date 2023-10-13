@@ -91,14 +91,14 @@ function BlockStart({ position = [0, 0, 0] }) {
             <Grave position={[-8, 0, 2]} />
         </RigidBody>
         <RigidBody colliders='hull'>
-            <Ribcage position={[-6, 0.2, 3]} />
+            <Ribcage position={[-8, 0.2, 3]} />
         </RigidBody>
         <Lantern position={[-3.5, 0, 3]} rotation={[0, 0.5, 0]} />
         <RigidBody colliders='hull'>
             <Skull position={[-2.75, 0, 2.8]} rotation={[0, 1.1, 0]} />
         </RigidBody>
         <RigidBody colliders='hull'>
-            <Pumpkin position={[-3.75, 0.3, 4]} rotation={[0, 1.1, 0]} />
+            <Pumpkin position={[-5, 0.3, 4]} rotation={[0, 1.1, 0]} />
         </RigidBody>
         <RigidBody type='fixed'>
             <Coffin position={[-7, 0, 8]} rotation={[0, 1.2, 0]} />
