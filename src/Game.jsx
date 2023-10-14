@@ -9,6 +9,8 @@ import Ecctrl from 'ecctrl'
 import { Perf } from 'r3f-perf'
 import { Lights } from './Lights'
 
+const isProd = process.env.NODE_ENV === 'production'
+
 export function Game() {
     const blocksCount = useGame((state) => state.blocksCount)
     const blocksSeed = useGame((state) => state.blocksSeed)
@@ -60,7 +62,7 @@ export function Game() {
             <Environment preset='night' />
             <Stars radius={50} count={800} fade speed={1} />
             {/* <OrbitControls /> */}
-            <Perf position='top-left' />
+            {!isProd && <Perf  position='top-left' />}
             <Physics>
                 <KeyboardControls map={keyboardMap}>
                     <Ecctrl
