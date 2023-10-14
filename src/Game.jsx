@@ -62,7 +62,7 @@ export function Game() {
             <Environment preset='night' />
             <Stars radius={50} count={800} fade speed={1} />
             {/* <OrbitControls /> */}
-            {!isProd && <Perf  position='top-left' />}
+            {!isProd && <Perf position='top-left' />}
             <Physics>
                 <KeyboardControls map={keyboardMap}>
                     <Ecctrl

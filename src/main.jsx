@@ -9,6 +9,6 @@ const isProd = process.env.NODE_ENV === 'production'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Experience />
-    {!isProd && <Leva />}
+    <Leva hidden={isProd} />
   </React.StrictMode>,
 )
