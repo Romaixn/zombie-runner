@@ -244,7 +244,7 @@ function Bounds({ length = 1}) {
     </>
 }
 
-export function Level({ count = 2, types = [Block], seed = 0 }) {
+export function Level({ count = 2, specialEach = 5, types = [Block], seed = 0 }) {
     const blocks = useMemo(() => {
         const blocks = []
         let typeIndex = 0
@@ -254,7 +254,7 @@ export function Level({ count = 2, types = [Block], seed = 0 }) {
             const type = types[Math.floor(Math.random() * types.length)]
             let isSpecial = false
 
-            if (specialIndex % 3 === 1) {
+            if (specialIndex % specialEach === 1) {
                 isSpecial = true
             }
 
