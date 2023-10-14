@@ -30,7 +30,8 @@ export function Portal({ side, isBonus }) {
 
     const affectArmy = () => {
         const { countArmy } = useGame.getState();
-        useGame.setState({ countArmy: eval(`${countArmy} ${text}`) })
+        const newCountArmy = eval(`${countArmy} ${text}`) < 0 ? 1 : eval(`${countArmy} ${text}`)
+        useGame.setState({ countArmy: newCountArmy })
     }
 
     return (
