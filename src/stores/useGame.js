@@ -16,6 +16,8 @@ export default create(subscribeWithSelector((set) => {
             }
 
             return {}
-        })
+        }),
+
+        countArmy: 1,
     }
 }))

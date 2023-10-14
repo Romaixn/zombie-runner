@@ -12,6 +12,7 @@ import { Lights } from './Lights'
 export function Game() {
     const blocksCount = useGame((state) => state.blocksCount)
     const blocksSeed = useGame((state) => state.blocksSeed)
+    const countArmy = useGame((state) => state.countArmy)
 
     const keyboardMap = [
         { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
@@ -60,7 +61,7 @@ export function Game() {
             <Stars radius={50} count={800} fade speed={1} />
             {/* <OrbitControls /> */}
             <Perf position='top-left' />
-            <Physics timeStep='vary'>
+            <Physics>
                 <KeyboardControls map={keyboardMap}>
                     <Ecctrl
                         followLight
@@ -72,7 +73,7 @@ export function Game() {
                         autoBalanceDampingC={0.04}
                         position={[4, 5, 0]}
                     >
-                        <Army count={1} />
+                        <Army count={countArmy} />
                     </Ecctrl>
                 </KeyboardControls>
 

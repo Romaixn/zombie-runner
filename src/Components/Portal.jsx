@@ -1,5 +1,7 @@
 import { Text } from "@react-three/drei"
 import { Pillar } from "./Pillar"
+import { CuboidCollider, RigidBody } from "@react-three/rapier"
+import useGame from "../stores/useGame"
 
 export function Portal({ side, isBonus }) {
     const posX = side === "left" ? -2.8 : 1
@@ -26,14 +28,24 @@ export function Portal({ side, isBonus }) {
 
     const text = `${operation}${operand}`
 
+    const affectArmy = () => {
+        const { countArmy } = useGame.getState();
+        useGame.setState({ countArmy: eval(`${countArmy} ${text}`) })
+    }
+
     return (
-        <group position={[posX, 0, 0, 0]}>
+        <group position={[posX, 0, 0]}>
             <Pillar position={[2.4, 0, 0]} />
             <Text position={[1, 2, 0.2]}>{text}</Text>
             <mesh position={[1, 1, 0]}>
                 <planeGeometry args={[2.5, 2]} />
                 <meshBasicMaterial color={'#FF6000'} opacity={0.2} transparent />
             </mesh>
+                <CuboidCollider
+                    args={[1, 1, 0]}
+                    position={[1, 1.1, 0]}
+                    sensor
+                    onIntersectionEnter={() => affectArmy()}/>
             <Pillar position={[-0.5, 0, 0]} />
         </group>
     )
