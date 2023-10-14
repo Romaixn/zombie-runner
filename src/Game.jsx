@@ -1,5 +1,5 @@
-import { Environment, KeyboardControls, OrbitControls, Stars, useHelper, useKeyboardControls } from '@react-three/drei'
-import { SkeletonMage, SkeletonMinion } from './Components/Characters/Skeleton'
+import { Environment, KeyboardControls, Stars } from '@react-three/drei'
+import { Army } from './Components/Characters/Skeleton'
 import { Physics } from '@react-three/rapier'
 import { Level } from './Level'
 import * as THREE from 'three'
@@ -62,12 +62,21 @@ export function Game() {
             <Perf position='top-left' />
             <Physics timeStep='vary'>
                 <KeyboardControls map={keyboardMap}>
-                    <Lights />
-                    <Ecctrl followLight camInitDis={-8} camMaxDis={-8}>
-                        <SkeletonMage position={[0, -0.7, 0]} userData={{ camExcludeCollision: true }} />
+                    <Ecctrl
+                        followLight
+                        camInitDis={-8}
+                        camMaxDis={-8}
+                        springK={2}
+                        dampingC={0.2}
+                        autoBalanceSpringK={1.2}
+                        autoBalanceDampingC={0.04}
+                        position={[4, 5, 0]}
+                    >
+                        <Army count={1} />
                     </Ecctrl>
                 </KeyboardControls>
 
+                <Lights />
                 <Level count={blocksCount} seed={blocksSeed} />
             </Physics>
         </>

@@ -1,15 +1,38 @@
 import { Text } from "@react-three/drei"
 import { Pillar } from "./Pillar"
 
-export function Portal({ side }) {
+export function Portal({ side, isBonus }) {
     const posX = side === "left" ? -2.8 : 1
+    const operations = isBonus ? ['+', '*'] : ['-', '/']
+    const operation = operations[Math.floor(Math.random() * operations.length)]
+    let operand = 0
+
+    switch (operation) {
+        case '+':
+            operand = 1 + Math.floor(Math.random() * 5)
+            break;
+        case '-':
+            operand = 1 + Math.floor(Math.random() * 5)
+            break;
+        case '*':
+            operand = 2 + Math.floor(Math.random() * 5)
+            break;
+        case '/':
+            operand = 2 + Math.floor(Math.random() * 5)
+            break;
+        default:
+            break;
+    }
+
+    const text = `${operation}${operand}`
+
     return (
         <group position={[posX, 0, 0, 0]}>
             <Pillar position={[2.4, 0, 0]} />
-            <Text position={[1, 2, 0.2]}>+2</Text>
-        <mesh position={[1, 1, 0]}>
+            <Text position={[1, 2, 0.2]}>{text}</Text>
+            <mesh position={[1, 1, 0]}>
                 <planeGeometry args={[2.5, 2]} />
-                <meshBasicMaterial color={'#ffa559'} opacity={0.4} transparent />
+                <meshBasicMaterial color={'#FF6000'} opacity={0.2} transparent />
             </mesh>
             <Pillar position={[-0.5, 0, 0]} />
         </group>
@@ -17,10 +40,13 @@ export function Portal({ side }) {
 }
 
 export function Portals() {
+    const isBonusLeft = Math.round(Math.random()) === 1
+    const isBonusRight = !isBonusLeft
+
     return (
         <>
-            <Portal side='left' />
-            <Portal side='right' />
+            <Portal side='left' isBonus={isBonusLeft} />
+            <Portal side='right' isBonus={isBonusRight} />
         </>
     )
 }

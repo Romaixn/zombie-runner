@@ -1,4 +1,43 @@
 import { useGLTF } from "@react-three/drei";
+import { useMemo } from "react";
+
+export function Army({count = 1, types = [SkeletonArcher, SkeletonMage, SkeletonWarrior, SkeletonMinion]}) {
+    const characters = useMemo(() => {
+        const characters = []
+        let typeIndex = 0
+        for (let i = 0; i < count; i++) {
+            const type = types[Math.floor(Math.random() * types.length)]
+            characters.push(type)
+
+            typeIndex++
+            if (typeIndex >= types.length) {
+                typeIndex = 0
+            }
+        }
+
+        return characters
+    }, [count, types])
+
+    const scale = Math.min(2 / Math.sqrt(count), 1.2)
+    const rows = 4
+    const columns = 4
+    const spacing = 1.2 * scale
+
+    return (
+        <>
+            {characters.map((Character, index) => {
+                const row = Math.floor(index / columns);
+                const column = index % columns;
+                const x = column * spacing;
+                const z = row * spacing;
+
+                return (
+                    <Character position={[x, -0.7, z]} key={index} scale={scale} />
+                )
+            })}
+        </>
+    )
+}
 
 export function SkeletonArcher(props) {
     const random = Math.floor(Math.random() * 2) + 1
