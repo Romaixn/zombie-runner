@@ -19,8 +19,13 @@ export function Army({count = 1, types = [SkeletonArcher, SkeletonMage, Skeleton
     }, [count, types])
 
     const scale = Math.min(2 / Math.sqrt(count), 1.2)
-    const spacing = 1.3 * scale
+    const spacing = 1.2 * scale
+    const numRows = 4
+    const numCols = 4
     const centerPosition = [0, -0.7, 0]
+    const halfWidth = (numCols - 1) * spacing * 0.5
+    const halfHeight = (numRows - 1) * spacing * 0.5
+
 
     return (
         <>
@@ -28,13 +33,14 @@ export function Army({count = 1, types = [SkeletonArcher, SkeletonMage, Skeleton
                 let x = 0
                 let z = 0
                 if (index !== 0) {
-                    const angle = (index / count) * Math.PI * 2;
-                    x = centerPosition[0] + spacing * Math.cos(angle);
-                    z = centerPosition[2] + spacing * Math.sin(angle);;
+                    const row = Math.floor(index / numCols);
+                    const col = index % numCols;
+                    x = centerPosition[0] + (col * spacing) - halfWidth;
+                    z = centerPosition[2] + (row * spacing) - halfHeight;
                 }
 
                 return (
-                    <Character position={[x, -0.7, z]} key={index} scale={scale} />
+                    <Character position={[x, centerPosition[1], z]} key={index} scale={scale} />
                 )
             })}
         </>
