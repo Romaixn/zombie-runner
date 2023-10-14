@@ -5,8 +5,11 @@ uniform vec3 uColor1;
 uniform vec3 uColor2;
 uniform vec3 uColor3;
 uniform vec3 uColor4;
+uniform sampler2D uLoadingMaskTexture;
+uniform float uLoadingMaskAlpha;
 
-#include ../partials/getPerlinNoise3d.glsl
+#include ../partials/getPerlinNoise2d
+#include ../partials/getPerlinNoise3d
 
 vec2 rotate(vec2 v, float a)
 {

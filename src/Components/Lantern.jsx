@@ -44,6 +44,7 @@ export function Lantern(props) {
                 position={[0, 2, 1]}
                 intensity={3}
                 color={'#BF8838'}
+                shadow-mapSize={[1024, 1024]}
             />
             <Sparkles
                 count={Math.floor(Math.random() * 8) + 1}
