@@ -20,8 +20,8 @@ export function Army({count = 1, types = [SkeletonArcher, SkeletonMage, Skeleton
 
     const scale = Math.min(2 / Math.sqrt(count), 1.2)
     const spacing = 1.2 * scale
-    const numRows = 4
-    const numCols = 4
+    const numRows = Math.ceil(Math.sqrt(count))
+    const numCols = Math.ceil(count / numRows)
     const centerPosition = [0, -0.7, 0]
     const halfWidth = (numCols - 1) * spacing * 0.5
     const halfHeight = (numRows - 1) * spacing * 0.5
