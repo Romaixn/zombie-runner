@@ -73,7 +73,7 @@ export function Game() {
                         dampingC={0.2}
                         autoBalanceSpringK={1.2}
                         autoBalanceDampingC={0.04}
-                        position={[4, 5, 0]}
+                        position={[0, 4, 7]}
                     >
                         <Army count={countArmy} />
                     </Ecctrl>

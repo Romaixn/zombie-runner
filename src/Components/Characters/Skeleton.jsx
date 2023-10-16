@@ -26,7 +26,6 @@ export function Army({count = 1, types = [SkeletonArcher, SkeletonMage, Skeleton
     const halfWidth = (numCols - 1) * spacing * 0.5
     const halfHeight = (numRows - 1) * spacing * 0.5
 
-
     return (
         <>
             {characters.map((Character, index) => {
