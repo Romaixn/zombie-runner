@@ -230,14 +230,14 @@ function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, 
 function Bounds({ length = 1}) {
     return <>
         <RigidBody type="fixed">
-            <CuboidCollider args={[0.25, 2, length * 2 + 0.7]} position={[-4, 1.5, -length * 2]} friction={1} />
-            <CuboidCollider args={[0.25, 2, length * 2 + 0.7]} position={[4, 1.5, -length * 2]} friction={1} />
+            <CuboidCollider args={[0.25, 4, length * 2 + 0.7]} position={[-4, 3.5, -length * 2]} friction={1} />
+            <CuboidCollider args={[0.25, 4, length * 2 + 0.7]} position={[4, 3.5, -length * 2]} friction={1} />
 
             <CuboidCollider args={[3.7, 0.1, length * 2]} position={[0, 0, -length * 2]} />
 
-            <CuboidCollider args={[10, 2, 0.2]} position={[0, 1.5, 10.2]} friction={1} />
-            <CuboidCollider args={[0.2, 2, 5]} position={[10.2, 1.5, 5]} friction={1} />
-            <CuboidCollider args={[0.2, 2, 5]} position={[-10.2, 1.5, 5]} friction={1} />
+            <CuboidCollider args={[10, 4, 0.2]} position={[0, 3.5, 10.2]} friction={1} />
+            <CuboidCollider args={[0.2, 4, 5]} position={[10.2, 3.5, 5]} friction={1} />
+            <CuboidCollider args={[0.2, 4, 5]} position={[-10.2, 3.5, 5]} friction={1} />
 
             <CuboidCollider args={[9.9, 0.1, 5]} position={[0, 0, 5]} />
         </RigidBody>

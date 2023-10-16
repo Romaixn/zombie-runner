@@ -5,7 +5,7 @@ import { Level } from './Level'
 import * as THREE from 'three'
 import { useEffect } from 'react'
 import useGame from './stores/useGame'
-import Ecctrl from 'ecctrl'
+import Controller from 'ecctrl'
 import { Perf } from 'r3f-perf'
 import { Lights } from './Lights'
 
@@ -63,20 +63,17 @@ export function Game() {
             <Stars radius={50} count={800} fade speed={1} />
             {/* <OrbitControls /> */}
             {!isProd && <Perf position='top-left' />}
-            <Physics>
+            <Physics debug>
                 <KeyboardControls map={keyboardMap}>
-                    <Ecctrl
+                    <Controller
                         followLight
                         camInitDis={-8}
                         camMaxDis={-8}
-                        springK={2}
-                        dampingC={0.2}
-                        autoBalanceSpringK={1.2}
-                        autoBalanceDampingC={0.04}
+                        maxVelLimit={3}
                         position={[0, 4, 7]}
                     >
                         <Army count={countArmy} />
-                    </Ecctrl>
+                    </Controller>
                 </KeyboardControls>
 
                 <Lights />
