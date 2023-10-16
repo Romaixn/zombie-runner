@@ -16,7 +16,7 @@ export function Lights() {
             position={ [ 10, 10, 5 ] }
             intensity={ 0.6 }
             shadow-mapSize={ [ 1024, 1024 ] }
-            shadow-bias={-0.0004}
+            shadow-bias={-0.0001}
             shadow-camera-far={ 50 }
             shadow-camera-top={ 25 }
             shadow-camera-right={ 25 }
