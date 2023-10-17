@@ -67,6 +67,7 @@ export function Game() {
                 <KeyboardControls map={keyboardMap}>
                     <Controller
                         followLight
+                        camInitDir={Math.PI}
                         camInitDis={-8}
                         camMaxDis={-8}
                         maxVelLimit={3}

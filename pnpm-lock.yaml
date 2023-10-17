@@ -18,8 +18,8 @@ dependencies:
     specifier: ^1.1.1
     version: 1.1.1(@react-three/fiber@8.14.5)(react@18.2.0)(three@0.157.0)
   ecctrl:
-    specifier: ^1.0.34
-    version: 1.0.34(@react-three/fiber@8.14.5)(@types/react-dom@18.2.13)(@types/react@18.2.28)(@types/three@0.157.0)(react-dom@18.2.0)(react@18.2.0)(three@0.157.0)
+    specifier: ^1.0.36
+    version: 1.0.36(@react-three/fiber@8.14.5)(@types/react-dom@18.2.13)(@types/react@18.2.28)(@types/three@0.157.0)(react-dom@18.2.0)(react@18.2.0)(three@0.157.0)
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -3094,7 +3094,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001549
-      electron-to-chromium: 1.4.554
+      electron-to-chromium: 1.4.556
       node-releases: 2.0.13
       update-browserslist-db: 1.0.13(browserslist@4.22.1)
     dev: true
@@ -3467,8 +3467,8 @@ packages:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
 
-  /ecctrl@1.0.34(@react-three/fiber@8.14.5)(@types/react-dom@18.2.13)(@types/react@18.2.28)(@types/three@0.157.0)(react-dom@18.2.0)(react@18.2.0)(three@0.157.0):
-    resolution: {integrity: sha512-nsrm30HzrHaDbfJidZgPV0OP5vjw/4G600nDWa+/5Ux1DqedbqK//hVvaLFEuiaNKipsl/vUTIvTvouxDIdEjg==}
+  /ecctrl@1.0.36(@react-three/fiber@8.14.5)(@types/react-dom@18.2.13)(@types/react@18.2.28)(@types/three@0.157.0)(react-dom@18.2.0)(react@18.2.0)(three@0.157.0):
+    resolution: {integrity: sha512-mZR0HxuKlp/Oj3stRUrvRalAEe7Y6B0b1LX1II+Bb3/72vtHaz2b/Mtn8UDYkXeA0kFHHS01jiwH3xtNG9cn6g==}
     peerDependencies:
       '@react-three/fiber': ^8.13.3
       react: '>=18'
@@ -3489,8 +3489,8 @@ packages:
       - react-dom
     dev: false
 
-  /electron-to-chromium@1.4.554:
-    resolution: {integrity: sha512-Q0umzPJjfBrrj8unkONTgbKQXzXRrH7sVV7D9ea2yBV3Oaogz991yhbpfvo2LMNkJItmruXTEzVpP9cp7vaIiQ==}
+  /electron-to-chromium@1.4.556:
+    resolution: {integrity: sha512-6RPN0hHfzDU8D56E72YkDvnLw5Cj2NMXZGg3UkgyoHxjVhG99KZpsKgBWMmTy0Ei89xwan+rbRsVB9yzATmYzQ==}
     dev: true
 
   /emmet@2.4.6:
