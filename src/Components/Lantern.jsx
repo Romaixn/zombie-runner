@@ -44,8 +44,16 @@ export function Lantern(props) {
                 position={[0, 2, 1]}
                 intensity={3}
                 color={'#BF8838'}
-                shadow-mapSize={[1024, 1024]}
-            />
+                shadow-mapSize={ [ 1024, 1024 ] }
+                shadow-bias={-0.0001}
+                shadow-camera-far={ 5 }
+                shadow-camera-top={ 5 }
+                shadow-camera-right={ 5 }
+                shadow-camera-bottom={ - 5 }
+                shadow-camera-left={ - 5 }
+            >
+                <orthographicCamera attach="shadow-camera" args={[-20, 20, 20, -20]} />
+            </spotLight>
             <Sparkles
                 count={Math.floor(Math.random() * 8) + 1}
                 size={5}
@@ -76,8 +84,17 @@ export function LanternStanding(props) {
                 castShadow
                 position={[0, 0.5, 0]}
                 intensity={2}
+                shadow-mapSize={ [ 1024, 1024 ] }
+                shadow-bias={-0.0001}
+                shadow-camera-far={ 5 }
+                shadow-camera-top={ 5 }
+                shadow-camera-right={ 5 }
+                shadow-camera-bottom={ - 5 }
+                shadow-camera-left={ - 5 }
                 color={'#BF8838'}
-            />
+            >
+                <orthographicCamera attach="shadow-camera" args={[-20, 20, 20, -20]} />
+            </pointLight>
             <Sparkles
                 count={Math.floor(Math.random() * 6) + 1}
                 size={5}

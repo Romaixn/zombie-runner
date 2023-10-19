@@ -22,9 +22,18 @@ export function Bench(props) {
                 ref={light}
                 castShadow
                 position={[-0.6, 0.8, 0]}
+                shadow-mapSize={ [ 1024, 1024 ] }
+                shadow-bias={-0.0001}
+                shadow-camera-far={ 5 }
+                shadow-camera-top={ 5 }
+                shadow-camera-right={ 5 }
+                shadow-camera-bottom={ - 5 }
+                shadow-camera-left={ - 5 }
                 intensity={2}
                 color={'#BF8838'}
-            />
+            >
+                <orthographicCamera attach="shadow-camera" args={[-20, 20, 20, -20]} />
+            </pointLight>
             <Sparkles
                 count={6}
                 size={5}
