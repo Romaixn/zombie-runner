@@ -1,8 +1,10 @@
 import { useGLTF } from "@react-three/drei";
-import { RigidBody } from "@react-three/rapier";
+import { CuboidCollider, RigidBody } from "@react-three/rapier";
+import useGame from "../stores/useGame";
 
 export function Gate(props) {
     const { nodes, materials } = useGLTF('/gltf/arch_gate.gltf')
+    const play = useGame((state) => state.play)
 
     return (
         <group {...props}>
@@ -14,6 +16,12 @@ export function Gate(props) {
                     receiveShadow
                 />
             </RigidBody>
+            <CuboidCollider
+                args={[2, 1, 0]}
+                position={[0, 1.1, -1]}
+                sensor
+                onIntersectionEnter={() => play()}
+            />
             <RigidBody type='fixed' position={nodes.arch_gate_left.position} rotation={[0, - Math.PI / 2 + 0.8, 0]}>
                 <mesh
                     geometry={nodes.arch_gate_left.geometry}

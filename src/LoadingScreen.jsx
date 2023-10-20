@@ -8,7 +8,7 @@ export function LoadingScreen() {
     const phase = useGame((state) => state.phase)
 
     return (
-        <div className={css(phase === 'playing' && {
+        <div className={css(phase !== 'welcome' && {
             opacity: 0,
             pointerEvents: 'none'
         }, {
@@ -38,7 +38,7 @@ export function LoadingScreen() {
                     }}
                 />
             </div>
-            <div className={css(phase === 'playing' && {
+            <div className={css(phase !== 'welcome' && {
                 opacity: 0
             }, {
                 padding: '4rem',

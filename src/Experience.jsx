@@ -26,9 +26,9 @@ function Experience() {
                 <color args={ [ '#383B43' ] } attach="background" />
                 <fog attach='fog' args={['#383B43', 1, 30]} />
 
-                <Suspense fallback={null}>{ phase === 'playing' && <Game /> }</Suspense>
+                <Suspense fallback={null}>{ phase !== 'welcome' && <Game /> }</Suspense>
             </Canvas>
-            { phase === 'playing' && <Interface /> }
+            { phase !== 'welcome' && <Interface /> }
             <LoadingScreen />
         </>
     )

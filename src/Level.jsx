@@ -58,10 +58,8 @@ function BlockStart({ position = [0, 0, 0] }) {
         <Floor position={[8, 0, 8]} />
         <Path position={[7, 0, 8]} />
 
-        <RigidBody type='fixed' friction={1}>
-            <FenceBroken position={[-8, 0, 1]} />
-            <Fence position={[-4, 0, 1]} />
-        </RigidBody>
+        <FenceBroken position={[-8, 0, 1]} />
+        <Fence position={[-4, 0, 1]} />
 
         <Float floatIntensity={0.75} rotationIntensity={0.75}>
             <Text
@@ -79,10 +77,8 @@ function BlockStart({ position = [0, 0, 0] }) {
         </Float>
         <Gate position={[0, 0, 1]} />
 
-        <RigidBody type='fixed' friction={1}>
-            <Fence position={[4, 0, 1]} />
-            <Fence position={[8, 0, 1]} />
-        </RigidBody>
+        <Fence position={[4, 0, 1]} />
+        <Fence position={[8, 0, 1]} />
 
         <Fence position={[4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />
         <Fence position={[-4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />
@@ -230,6 +226,9 @@ function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, 
 function Bounds({ length = 1}) {
     return <>
         <RigidBody type="fixed">
+            <CuboidCollider args={[4, 4, 0.2]} position={[-6, 3.5, 1]} friction={1} />
+            <CuboidCollider args={[4, 4, 0.2]} position={[6, 3.5, 1]} friction={1} />
+
             <CuboidCollider args={[0.25, 4, length * 2 + 0.7]} position={[-4, 3.5, -length * 2]} friction={1} />
             <CuboidCollider args={[0.25, 4, length * 2 + 0.7]} position={[4, 3.5, -length * 2]} friction={1} />
 
