@@ -1,6 +1,7 @@
 import { useProgress } from "@react-three/drei"
 import useGame from "./stores/useGame"
 import { css } from "../styled-system/css"
+import { center } from "../styled-system/patterns"
 
 export function LoadingScreen() {
     const { progress } = useProgress()
@@ -8,7 +9,7 @@ export function LoadingScreen() {
     const phase = useGame((state) => state.phase)
 
     return (
-        <div className={css(phase === 'playing' && {
+        <div className={css(phase !== 'welcome' && {
             opacity: 0,
             pointerEvents: 'none'
         }, {
@@ -17,46 +18,43 @@ export function LoadingScreen() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            transition: 'opacity 1.5s'
+            transition: 'opacity 1.5s',
         })}>
-            <div className={css({
-                position: 'absolute',
-                left: 0,
-                bottom: 0,
-                width: '100%',
-                height: '12px'
-            })}>
-                <div
-                    className={css({
-                        position: 'absolute',
-                        inset: 0,
-                        backgroundColor: 'rgb(0 0 0 / 50%)',
-                        transition: `width 0.4s`,
-                    })}
-                    style={{
-                        width: `${progress}%`,
-                    }}
-                />
-            </div>
-            <div className={css(phase === 'playing' && {
+            <img
+                className={css({
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    position: 'absolute',
+                    inset: 0,
+                    zIndex: 0,
+                })}
+                src="/images/waiting.jpg" alt="Spooky Halloween scene with graveyards, skeletons, pumpkins, lanterns, candles, etc.. with a path in middle with a big gate at the beginning with open door and cemetery fences around and a crypt at the end of the path."
+            />
+            <div className={css(phase !== 'welcome' && {
                 opacity: 0
             }, {
                 padding: '4rem',
-                backgroundColor: 'rgb(22 160 75 / 42%)',
+                paddingBottom: '2.5rem',
+                backgroundColor: 'rgba(255, 165, 89, 0.7)',
                 borderRadius: '2rem',
                 textAlign: 'center',
-                transition: 'opacity 0.4s'
+                transition: 'opacity 0.4s',
+                zIndex: 1,
+                backdropFilter: 'blur(4px)',
             })}>
                 <h1 className={css({
                     fontSize: '4rem',
-                    color: 'rgba(0, 0, 0, 0.5)',
-                    margin: 0,
-                    marginBottom: '8px',
-                })}>Zombie Runner</h1>
+                    color: '#454545',
+                    marginBottom: '1rem',
+                })}>Get Ready for Zombie Runner!</h1>
                 <button
                     className={css({
+                        marginTop: '2rem',
+                        marginBottom: '1rem',
                         padding: '8px 32px',
-                        backgroundColor: { base: 'rgba(0, 0, 0, 0.24)', _hover: 'rgba(0, 0, 0, 0.42)'},
+                        backgroundColor: { base: 'rgba(255, 96, 0, 1)', _hover: 'rgba(255, 96, 0, 0.42)'},
                         color: 'white',
                         border: 'none',
                         fontWeight: 'bold',
@@ -69,8 +67,42 @@ export function LoadingScreen() {
                     disabled={progress < 100}
                     onClick={start}
                 >
-                    Start
+                    Unleash the game
                 </button>
+               <div
+                    className={center({
+                        marginTop: '2.5rem',
+                        flexDirection: 'column',
+                    })}
+                >
+                    <div
+                        className={css({
+                            overflow: 'hidden',
+                            borderRadius: 'lg',
+                            backgroundColor: 'rgba(229, 231, 235, 1)',
+                            width: '18rem',
+                        })}
+                    >
+                        <div
+                            className={css({
+                                height: '0.5rem',
+                                borderRadius: 'lg',
+                                backgroundColor: 'rgb(255, 96, 0)',
+                                transition: `width 0.4s`,
+                            })}
+                            style={{
+                                width: `${progress}%`,
+                            }}
+                        />
+                    </div>
+
+                    <div className={css(progress >= 100 &&
+                        { opacity: 0 },
+                        { textAlign: 'center', fontSize: '1.5rem', color: 'rgb(69 69 69)', transition: 'opacity .4s' })}>
+                        <p>World is loading...</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     )

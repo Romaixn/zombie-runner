@@ -42,11 +42,11 @@ export function Portal({ side, isBonus }) {
                 <planeGeometry args={[2.5, 2]} />
                 <meshBasicMaterial color={'#FF6000'} opacity={0.2} transparent />
             </mesh>
-                <CuboidCollider
-                    args={[1, 1, 0]}
-                    position={[1, 1.1, 0]}
-                    sensor
-                    onIntersectionEnter={() => affectArmy()}/>
+            <CuboidCollider
+                args={[1, 1, 0]}
+                position={[1, 1.1, 0]}
+                sensor
+                onIntersectionEnter={() => affectArmy()}/>
             <Pillar position={[-0.5, 0, 0]} />
         </group>
     )

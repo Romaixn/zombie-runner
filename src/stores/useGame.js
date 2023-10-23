@@ -12,7 +12,14 @@ export default create(subscribeWithSelector((set) => {
         phase: 'welcome',
         start: () => set((state) => {
             if(state.phase === 'welcome') {
-                return { phase: 'playing' }
+                return { phase: 'lobby' }
+            }
+
+            return {}
+        }),
+        play: () => set((state) => {
+            if(state.phase === 'lobby') {
+                return { phase: 'game' }
             }
 
             return {}
