@@ -59,8 +59,6 @@ export function LoadingScreen() {
                         color: 'white',
                         border: 'none',
                         fontSize: '2.5rem',
-                        fontFamily: 'shlop',
-                        letterSpacing: '0.2rem',
                         borderRadius: '8px',
                         transition: 'background-color 0.4s',
                         cursor: { _disabled: 'not-allowed', _hover: 'pointer' },
@@ -100,7 +98,7 @@ export function LoadingScreen() {
 
                     <div className={css(progress >= 100 &&
                         { opacity: 0 },
-                        { textAlign: 'center', fontSize: '1.5rem', color: 'rgb(69 69 69)', transition: 'opacity .4s', fontFamily: 'shlop' })}>
+                        { textAlign: 'center', fontSize: '1.5rem', color: 'rgb(69 69 69)', transition: 'opacity .4s' })}>
                         <p>World is loading...</p>
                     </div>
                 </div>
