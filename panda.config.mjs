@@ -12,7 +12,13 @@ export default defineConfig({
 
     // Useful for theme customization
     theme: {
-      extend: {}
+      extend: {
+        tokens: {
+            fonts: {
+                shlop: { value: 'var(--font-shlop), sans-serif' }
+            }
+        }
+      }
     },
 
     // The output directory for your css system

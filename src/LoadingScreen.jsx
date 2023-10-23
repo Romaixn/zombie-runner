@@ -22,15 +22,14 @@ export function LoadingScreen() {
         })}>
             <img
                 className={css({
-                    width: '100%',
-                    height: '100%',
+                    aspectRatio: '16 / 9',
                     objectFit: 'cover',
-                    objectPosition: 'center',
                     position: 'absolute',
                     inset: 0,
                     zIndex: 0,
+                    filter: 'blur(4px)',
                 })}
-                src="/images/waiting.jpg" alt="Spooky Halloween scene with graveyards, skeletons, pumpkins, lanterns, candles, etc.. with a path in middle with a big gate at the beginning with open door and cemetery fences around and a crypt at the end of the path."
+                src="/images/waiting.png" alt="Screenshot of the game"
             />
             <div className={css(phase !== 'welcome' && {
                 opacity: 0
@@ -46,7 +45,9 @@ export function LoadingScreen() {
             })}>
                 <h1 className={css({
                     fontSize: '4rem',
-                    color: '#454545',
+                    fontFamily: 'shlop',
+                    letterSpacing: '0.2rem',
+                    color: 'white',
                     marginBottom: '1rem',
                 })}>Get Ready for Zombie Runner!</h1>
                 <button
@@ -57,8 +58,9 @@ export function LoadingScreen() {
                         backgroundColor: { base: 'rgba(255, 96, 0, 1)', _hover: 'rgba(255, 96, 0, 0.42)'},
                         color: 'white',
                         border: 'none',
-                        fontWeight: 'bold',
                         fontSize: '2.5rem',
+                        fontFamily: 'shlop',
+                        letterSpacing: '0.2rem',
                         borderRadius: '8px',
                         transition: 'background-color 0.4s',
                         cursor: { _disabled: 'not-allowed', _hover: 'pointer' },
@@ -98,7 +100,7 @@ export function LoadingScreen() {
 
                     <div className={css(progress >= 100 &&
                         { opacity: 0 },
-                        { textAlign: 'center', fontSize: '1.5rem', color: 'rgb(69 69 69)', transition: 'opacity .4s' })}>
+                        { textAlign: 'center', fontSize: '1.5rem', color: 'rgb(69 69 69)', transition: 'opacity .4s', fontFamily: 'shlop' })}>
                         <p>World is loading...</p>
                     </div>
                 </div>

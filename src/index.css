@@ -17,3 +17,18 @@
         touch-action: none;
     }
 }
+
+@layer base {
+    @font-face {
+        font-family: 'Shlop';
+        src: url('/fonts/shlop.otf') format('truetype');
+    }
+
+    :root {
+        --font-shlop: 'Shlop', sans-serif;
+    }
+
+    html {
+        background-color: #383B43;
+    }
+}
