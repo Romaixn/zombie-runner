@@ -4,6 +4,7 @@ import { Game } from './Game'
 import { Canvas } from '@react-three/fiber'
 import { LoadingScreen } from './LoadingScreen'
 import Interface from './Interface'
+import { css } from "../styled-system/css"
 
 
 function Experience() {
