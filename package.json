@@ -15,7 +15,6 @@
     "@react-three/fiber": "^8.15.4",
     "@react-three/postprocessing": "^2.15.6",
     "@react-three/rapier": "^1.1.2",
-    "ecctrl": "^1.0.36",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-spring": "^9.7.3",
