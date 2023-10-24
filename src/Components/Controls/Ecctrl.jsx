@@ -6,6 +6,8 @@ import * as THREE from "three"
 import { useControls } from "leva"
 import { useFollowCam } from "./hooks/useFollowCam"
 import { useAnim } from "../../stores/useAnim"
+import useGame from "../../stores/useGame"
+import { useState } from "react"
 
 export { EcctrlAnimation } from "./EcctrlAnimation"
 
@@ -84,6 +86,15 @@ export default function Ecctrl({
 }) {
   const characterRef = useRef()
   const characterModelRef = useRef()
+  const [isPlaying, setIsPlaying] = useState(false)
+
+  const phase = useGame((state) => state.phase)
+
+  useEffect(() => {
+    if(phase === 'game') {
+        setIsPlaying(true)
+    }
+}, [phase])
 
   // Animation change functions
   const idleAnimation = !animated ? null : useAnim(state => state.idle)
@@ -665,39 +676,57 @@ export default function Ecctrl({
     /**
      * Getting all the useful keys from useKeyboardControls
      */
-    const { forward, backward, leftward, rightward, jump, run } = getKeys()
+    let { forward, backward, leftward, rightward, jump, run } = getKeys()
+
+    if(isPlaying) {
+        forward = true
+        run = true
+        canJump = false
+
+        const elapsed = state.clock.getElapsedTime()
+        const maxSpeed = 8
+        const minSpeed = 2
+        const speedIncreaseRate = 0.25
+
+        let speed = elapsed * speedIncreaseRate + minSpeed
+
+        speed = Math.min(speed, maxSpeed)
+
+        console.log(speed);
+        sprintMult = speed
+    }
 
     // Getting moving directions
     if (forward) {
-      // Apply camera rotation to character model
-      modelEuler.y = pivot.rotation.y
+        // Apply camera rotation to character model
+        modelEuler.y = pivot.rotation.y
     } else if (backward) {
-      // Apply camera rotation to character model
-      modelEuler.y = pivot.rotation.y + Math.PI
+        // Apply camera rotation to character model
+        modelEuler.y = pivot.rotation.y + Math.PI
     } else if (leftward) {
-      // Apply camera rotation to character model
-      modelEuler.y = pivot.rotation.y + Math.PI / 2
+        // Apply camera rotation to character model
+        modelEuler.y = pivot.rotation.y + Math.PI / 2
     } else if (rightward) {
-      // Apply camera rotation to character model
-      modelEuler.y = pivot.rotation.y - Math.PI / 2
+        // Apply camera rotation to character model
+        modelEuler.y = pivot.rotation.y - Math.PI / 2
     }
     if (forward && leftward) {
-      // Apply camera rotation to character model
-      modelEuler.y = pivot.rotation.y + Math.PI / 4
+        // Apply camera rotation to character model
+        modelEuler.y = pivot.rotation.y + Math.PI / 4
     } else if (forward && rightward) {
-      // Apply camera rotation to character model
-      modelEuler.y = pivot.rotation.y - Math.PI / 4
+        // Apply camera rotation to character model
+        modelEuler.y = pivot.rotation.y - Math.PI / 4
     } else if (backward && leftward) {
-      // Apply camera rotation to character model
-      modelEuler.y = pivot.rotation.y - Math.PI / 4 + Math.PI
+        // Apply camera rotation to character model
+        modelEuler.y = pivot.rotation.y - Math.PI / 4 + Math.PI
     } else if (backward && rightward) {
-      // Apply camera rotation to character model
-      modelEuler.y = pivot.rotation.y + Math.PI / 4 + Math.PI
+        // Apply camera rotation to character model
+        modelEuler.y = pivot.rotation.y + Math.PI / 4 + Math.PI
     }
 
     // Move character to the moving direction
     if (forward || backward || leftward || rightward)
-      moveCharacter(delta, run, slopeAngle, movingObjectVelocity)
+        moveCharacter(delta, run, slopeAngle, movingObjectVelocity)
 
     // Character current velocity
     if (characterRef.current) {
