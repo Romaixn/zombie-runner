@@ -64,7 +64,7 @@ export function Game() {
             <Stars radius={50} count={800} fade speed={1} />
             {/* <OrbitControls /> */}
             {!isProd && <Perf position='top-left' />}
-            <Physics debug>
+            <Physics>
                 <KeyboardControls map={keyboardMap}>
                     <Controller
                         followLight
