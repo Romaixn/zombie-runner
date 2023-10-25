@@ -125,6 +125,7 @@ function BlockStart({ position = [0, 0, 0] }) {
 
 function BlockEnd({ position = [0, 0, 0] }) {
     const end = useGame((state) => state.end)
+    const phase = useGame((state) => state.phase)
 
     return <group position={position}>
         <Floor position={[-8, 0, 0]} />
@@ -172,6 +173,13 @@ function BlockEnd({ position = [0, 0, 0] }) {
             sensor
             onIntersectionEnter={() => end()}
         />
+
+        {phase === 'end' &&
+            <CuboidCollider
+                args={[4, 3, 0]}
+                position={[0, 3, 15]}
+            />
+        }
 
         <Crypt position={[0, 0, -8]} />
     </group>
