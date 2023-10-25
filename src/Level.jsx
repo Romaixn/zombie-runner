@@ -181,7 +181,21 @@ function BlockEnd({ position = [0, 0, 0] }) {
             />
         }
 
+        <Sparkles size={6} position={[0, 1, 2]} scale={[20, 10, 10]} />
         <Crypt position={[0, 0, -8]} />
+
+        <Lantern position={[3.5, 0, -4.5]} rotation={[0, -Math.PI / 2 + 1 , 0]} />
+        <Lantern position={[-3.5, 0, -4.5]} rotation={[0, Math.PI / 2 - 1, 0]} />
+
+        <group position={[0, 0, -4]}>
+            <Decor side='left' />
+            <Decor side='right' />
+        </group>
+
+        <group position={[0, 0, -8]}>
+            <Decor side='left' />
+            <Decor side='right' />
+        </group>
     </group>
 }
 
