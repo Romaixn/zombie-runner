@@ -94,6 +94,8 @@ export default function Ecctrl({
   useEffect(() => {
     if(phase === 'game') {
         setIsPlaying(true)
+    } else {
+        setIsPlaying(false)
     }
 }, [phase])
 

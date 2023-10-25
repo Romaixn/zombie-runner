@@ -24,6 +24,13 @@ export default create(subscribeWithSelector((set) => {
 
             return {}
         }),
+        end: () => set((state) => {
+            if(state.phase === 'game') {
+                return { phase: 'end' }
+            }
+
+            return {}
+        }),
 
         countArmy: 1,
     }

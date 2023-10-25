@@ -15,6 +15,7 @@ import { Shrine } from "./Components/Shrine"
 import { Float, Sparkles, Text } from "@react-three/drei"
 import * as THREE from 'three'
 import { Portals } from "./Components/Portal"
+import useGame from "./stores/useGame"
 
 function BlockStart({ position = [0, 0, 0] }) {
     return <group position={position}>
@@ -123,6 +124,8 @@ function BlockStart({ position = [0, 0, 0] }) {
 }
 
 function BlockEnd({ position = [0, 0, 0] }) {
+    const end = useGame((state) => state.end)
+
     return <group position={position}>
         <Floor position={[-8, 0, 0]} />
         <Floor position={[-4, 0, 0]} />
@@ -162,6 +165,13 @@ function BlockEnd({ position = [0, 0, 0] }) {
         <Fence position={[-4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />
         <Fence position={[5.75, 0, -3.6]} />
         <Fence position={[-5.75, 0, -3.6]} />
+
+        <CuboidCollider
+            args={[4, 1, 0]}
+            position={[0, 1.1, 0]}
+            sensor
+            onIntersectionEnter={() => end()}
+        />
 
         <Crypt position={[0, 0, -8]} />
     </group>
@@ -226,17 +236,19 @@ function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, 
 function Bounds({ length = 1}) {
     return <>
         <RigidBody type="fixed">
-            <CuboidCollider args={[4, 4, 0.2]} position={[-6, 3.5, 1]} friction={1} />
-            <CuboidCollider args={[4, 4, 0.2]} position={[6, 3.5, 1]} friction={1} />
+            <CuboidCollider args={[4, 4, 0.2]} position={[-6, 3.5, 1]} />
+            <CuboidCollider args={[4, 4, 0.2]} position={[6, 3.5, 1]} />
 
-            <CuboidCollider args={[0.25, 4, length * 2 + 0.7]} position={[-4, 3.5, -length * 2]} friction={1} />
-            <CuboidCollider args={[0.25, 4, length * 2 + 0.7]} position={[4, 3.5, -length * 2]} friction={1} />
+            <CuboidCollider args={[0.25, 4, length * 2 + 0.7]} position={[-4, 3.5, -length * 2]} />
+            <CuboidCollider args={[0.25, 4, length * 2 + 0.7]} position={[4, 3.5, -length * 2]} />
 
             <CuboidCollider args={[3.7, 0.1, length * 2]} position={[0, 0, -length * 2]} />
 
-            <CuboidCollider args={[10, 4, 0.2]} position={[0, 3.5, 10.2]} friction={1} />
-            <CuboidCollider args={[0.2, 4, 5]} position={[10.2, 3.5, 5]} friction={1} />
-            <CuboidCollider args={[0.2, 4, 5]} position={[-10.2, 3.5, 5]} friction={1} />
+            <CuboidCollider args={[4, 4, 0.1]} position={[0, 2, -length * 4]} />
+
+            <CuboidCollider args={[10, 4, 0.2]} position={[0, 3.5, 10.2]} />
+            <CuboidCollider args={[0.2, 4, 5]} position={[10.2, 3.5, 5]} />
+            <CuboidCollider args={[0.2, 4, 5]} position={[-10.2, 3.5, 5]} />
 
             <CuboidCollider args={[9.9, 0.1, 5]} position={[0, 0, 5]} />
         </RigidBody>
