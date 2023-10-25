@@ -87,6 +87,7 @@ export default function Ecctrl({
   const characterRef = useRef()
   const characterModelRef = useRef()
   const [isPlaying, setIsPlaying] = useState(false)
+  const [elapsedTimeAfterPlaying, setElapsedTimeAfterPlaying] = useState(0)
 
   const phase = useGame((state) => state.phase)
 
@@ -683,17 +684,17 @@ export default function Ecctrl({
         run = true
         canJump = false
 
-        const elapsed = state.clock.getElapsedTime()
-        const maxSpeed = 8
-        const minSpeed = 2
-        const speedIncreaseRate = 0.25
+        const elapsed = elapsedTimeAfterPlaying
+        const maxSpeed = 10
+        const minSpeed = 2.5
+        const speedIncreaseRate = 0.5
 
         let speed = elapsed * speedIncreaseRate + minSpeed
 
         speed = Math.min(speed, maxSpeed)
 
-        console.log(speed);
         sprintMult = speed
+        setElapsedTimeAfterPlaying(elapsed + delta)
     }
 
     // Getting moving directions

@@ -20,14 +20,12 @@ export function Pillar(props) {
 
     return (
         <group {...props}>
-            <RigidBody type="fixed">
-                <mesh
-                    geometry={nodes[pillarType].geometry}
-                    material={materials.HalloweenBits}
-                    receiveShadow
-                    castShadow
-                />
-            </RigidBody>
+            <mesh
+                geometry={nodes[pillarType].geometry}
+                material={materials.HalloweenBits}
+                receiveShadow
+                castShadow
+            />
         </group>
     )
 }

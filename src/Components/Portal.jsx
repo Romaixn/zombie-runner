@@ -30,13 +30,15 @@ export function Portal({ side, isBonus }) {
 
     const affectArmy = () => {
         const { countArmy } = useGame.getState();
-        const newCountArmy = eval(`${countArmy} ${text}`) < 0 ? 1 : eval(`${countArmy} ${text}`)
+        const newCountArmy = eval(`${countArmy} ${text}`) <= 0 ? 1 : eval(`${countArmy} ${text}`)
         useGame.setState({ countArmy: newCountArmy })
     }
 
     return (
         <group position={[posX, 0, 0]}>
-            <Pillar position={[2.4, 0, 0]} />
+            <RigidBody type='fixed'>
+                <Pillar position={[2.4, 0, 0]} />
+            </RigidBody>
             <Text position={[1, 2, 0.2]}>{text}</Text>
             <mesh position={[1, 1, 0]}>
                 <planeGeometry args={[2.5, 2]} />
@@ -47,14 +49,18 @@ export function Portal({ side, isBonus }) {
                 position={[1, 1.1, 0]}
                 sensor
                 onIntersectionEnter={() => affectArmy()}/>
-            <Pillar position={[-0.5, 0, 0]} />
+            <RigidBody type='fixed'>
+                <Pillar position={[-0.5, 0, 0]} />
+            </RigidBody>
         </group>
     )
 }
 
 export function Portals() {
-    const isBonusLeft = Math.round(Math.random()) === 1
-    const isBonusRight = !isBonusLeft
+    const isOnlyPenalty = Math.random() < 0.2
+
+    const isBonusLeft = isOnlyPenalty ? false : Math.round(Math.random()) === 1
+    const isBonusRight = isOnlyPenalty ? false : !isBonusLeft
 
     return (
         <>
