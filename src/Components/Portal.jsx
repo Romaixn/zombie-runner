@@ -14,13 +14,13 @@ export function Portal({ side, isBonus }) {
             operand = 1 + Math.floor(Math.random() * 5)
             break;
         case '-':
-            operand = 1 + Math.floor(Math.random() * 5)
+            operand = 1 + Math.floor(Math.random() * 6)
             break;
         case '*':
-            operand = 2 + Math.floor(Math.random() * 5)
+            operand = 2 + Math.floor(Math.random() * 2)
             break;
         case '/':
-            operand = 2 + Math.floor(Math.random() * 5)
+            operand = 2 + Math.floor(Math.random() * 6)
             break;
         default:
             break;
