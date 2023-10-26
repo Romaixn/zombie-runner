@@ -199,15 +199,19 @@ function BlockEnd({ position = [0, 0, 0] }) {
     </group>
 }
 
-function Block({ special, position = [0, 0, 0]}) {
-    const isRightFenceBroken = Math.random() < 0.3
-    const isLeftFenceBroken = Math.random() < 0.3
+function Block({ special, position = [0, 0, 0], index}) {
+    const {isRightFenceBroken, isLeftFenceBroken} = useMemo(() => {
+        const isRightFenceBroken = Math.random() < 0.3
+        const isLeftFenceBroken = Math.random() < 0.3
+
+        return {isRightFenceBroken, isLeftFenceBroken}
+    })
 
     return <group position={position}>
         <Floor position={[-8, 0, 0]} />
         <Floor position={[-4, 0, 0]} />
         <Floor position={[0, 0, 0]} />
-        {special && <Portals />}
+        {special && <Portals index={index} />}
         <Floor position={[4, 0, 0]} />
         <Floor position={[8, 0, 0]} />
 
@@ -300,7 +304,6 @@ export function Level({ count = 2, specialEach = 5, types = [Block], seed = 0 })
             specialIndex++
         }
 
-
         return blocks
     }, [count, types, seed])
 
@@ -309,7 +312,7 @@ export function Level({ count = 2, specialEach = 5, types = [Block], seed = 0 })
         {blocks.map((Block, index) => {
             const { type: Type, isSpecial } = Block
             return (
-                <Type key={index} special={isSpecial} position={[0, 0, -(index + 1) * 4 ]} />)}
+                <Type key={index} special={isSpecial} position={[0, 0, -(index + 1) * 4 ]} index={index} />)}
             )
         }
 

@@ -2,31 +2,38 @@ import { Text } from "@react-three/drei"
 import { Pillar } from "./Pillar"
 import { CuboidCollider, RigidBody } from "@react-three/rapier"
 import useGame from "../stores/useGame"
+import { useEffect } from "react"
+import { useState } from "react"
+import { useMemo } from "react"
 
 export function Portal({ side, isBonus }) {
+    const [text, setText] = useState('')
     const posX = side === "left" ? -2.8 : 1
-    const operations = isBonus ? ['+', '*'] : ['-', '/']
-    const operation = operations[Math.floor(Math.random() * operations.length)]
-    let operand = 0
 
-    switch (operation) {
-        case '+':
-            operand = 1 + Math.floor(Math.random() * 5)
-            break;
-        case '-':
-            operand = 1 + Math.floor(Math.random() * 6)
-            break;
-        case '*':
-            operand = 2 + Math.floor(Math.random() * 2)
-            break;
-        case '/':
-            operand = 2 + Math.floor(Math.random() * 6)
-            break;
-        default:
-            break;
-    }
+    useEffect(() => {
+        const operations = isBonus ? ['+', '*'] : ['-', '/']
+        const operation = operations[Math.floor(Math.random() * operations.length)]
+        let operand = 0
 
-    const text = `${operation}${operand}`
+        switch (operation) {
+            case '+':
+                operand = 1 + Math.floor(Math.random() * 5)
+                break;
+            case '-':
+                operand = 1 + Math.floor(Math.random() * 5)
+                break;
+            case '*':
+                operand = 2 + Math.floor(Math.random() * 2)
+                break;
+            case '/':
+                operand = 2 + Math.floor(Math.random() * 5)
+                break;
+            default:
+                break;
+        }
+
+        setText(`${operation}${operand}`)
+    }, [isBonus])
 
     const affectArmy = () => {
         const { countArmy } = useGame.getState();
@@ -56,11 +63,20 @@ export function Portal({ side, isBonus }) {
     )
 }
 
-export function Portals() {
-    const isOnlyPenalty = Math.random() < 0.2
+export function Portals({ index }) {
+    console.log(index);
+    const {isBonusLeft, isBonusRight} = useMemo(() => {
+        let isOnlyPenalty = false
 
-    const isBonusLeft = isOnlyPenalty ? false : Math.round(Math.random()) === 1
-    const isBonusRight = isOnlyPenalty ? false : !isBonusLeft
+        if(index !== 1) {
+            isOnlyPenalty = Math.random() < 0.2
+        }
+
+        const isBonusLeft = isOnlyPenalty ? false : Math.round(Math.random()) === 1
+        const isBonusRight = isOnlyPenalty ? false : !isBonusLeft
+
+        return { isBonusLeft, isBonusRight }
+    }, [])
 
     return (
         <>
