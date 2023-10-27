@@ -1,4 +1,4 @@
-import { Environment, Fisheye, KeyboardControls, Stars } from '@react-three/drei'
+import { Environment, KeyboardControls, Stars } from '@react-three/drei'
 import { Army } from './Components/Characters/Skeleton'
 import { Physics } from '@react-three/rapier'
 import { Level } from './Level'
@@ -8,7 +8,6 @@ import useGame from './stores/useGame'
 import Controller from './Components/Controls/Ecctrl'
 import { Perf } from 'r3f-perf'
 import { Lights } from './Lights'
-import { useState } from 'react'
 
 const isProd = process.env.NODE_ENV === 'production'
 

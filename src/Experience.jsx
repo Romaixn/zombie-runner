@@ -4,11 +4,10 @@ import { Game } from './Game'
 import { Canvas } from '@react-three/fiber'
 import { LoadingScreen } from './LoadingScreen'
 import Interface from './Interface'
-import { css } from "../styled-system/css"
-
 
 function Experience() {
     const phase = useGame((state) => state.phase)
+    const countArmy = Math.round(useGame((state) => state.countArmy))
 
     return (
         <>

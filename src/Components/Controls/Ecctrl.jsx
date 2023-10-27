@@ -90,6 +90,7 @@ export default function Ecctrl({
   const [elapsedTimeAfterPlaying, setElapsedTimeAfterPlaying] = useState(0)
 
   const phase = useGame((state) => state.phase)
+  const status = useGame((state) => state.status)
 
   useEffect(() => {
     if(phase === 'game') {
@@ -697,6 +698,15 @@ export default function Ecctrl({
 
         sprintMult = speed
         setElapsedTimeAfterPlaying(elapsed + delta)
+    }
+
+    if(status === 'lose') {
+        forward = false
+        backward = false
+        leftward = false
+        rightward = false
+        run = false
+        canJump = false
     }
 
     // Getting moving directions

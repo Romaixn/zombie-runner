@@ -25,13 +25,16 @@ export default create(subscribeWithSelector((set) => {
             return {}
         }),
         end: () => set((state) => {
-            if(state.phase === 'game') {
-                return { phase: 'end' }
+            if(state.phase === 'game' && state.countArmy > 0) {
+                return { phase: 'end', status: 'win' }
+            } else if (state.phase === 'game' && state.countArmy <= 0) {
+                return { phase: 'end', status: 'lose' }
             }
 
             return {}
         }),
 
         countArmy: 1,
+        status: null
     }
 }))

@@ -8,6 +8,7 @@ import { useMemo } from "react"
 
 export function Portal({ side, isBonus }) {
     const [text, setText] = useState('')
+    const end = useGame((state) => state.end)
     const posX = side === "left" ? -2.8 : 1
 
     useEffect(() => {
@@ -37,8 +38,13 @@ export function Portal({ side, isBonus }) {
 
     const affectArmy = () => {
         const { countArmy } = useGame.getState();
-        const newCountArmy = eval(`${countArmy} ${text}`) <= 0 ? 1 : eval(`${countArmy} ${text}`)
-        useGame.setState({ countArmy: newCountArmy })
+        const calc = eval(`${countArmy} ${text}`)
+
+        useGame.setState({ countArmy: calc })
+
+        if (Math.round(calc) <= 0) {
+            end()
+        }
     }
 
     return (
@@ -64,7 +70,6 @@ export function Portal({ side, isBonus }) {
 }
 
 export function Portals({ index }) {
-    console.log(index);
     const {isBonusLeft, isBonusRight} = useMemo(() => {
         let isOnlyPenalty = false
 

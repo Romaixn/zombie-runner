@@ -1,9 +1,13 @@
 import useGame from "./stores/useGame"
 import { css } from "../styled-system/css"
+import { center } from '../styled-system/patterns'
 
 export default function Interface() {
     const soundPlaying = useGame((state) => state.soundPlaying)
     const toggleSound = useGame((state) => state.toggleSound)
+    const countArmy = Math.round(useGame((state) => state.countArmy))
+    const phase = useGame((state) => state.phase)
+    const status = useGame((state) => state.status)
 
     return <div className={css({
         position: 'fixed',
@@ -13,6 +17,19 @@ export default function Interface() {
         height: '100%',
         pointerEvents: 'none',
     })}>
+        {phase === 'game' && (
+            <div className={css({
+                position: 'absolute',
+                top: '0',
+                left: '50%',
+                transform: 'translateX(-50%)',
+            })}>
+                <p className={css({
+                    color: '#fff',
+                })}>{countArmy} points</p>
+            </div>
+        )}
+
         <div className={css({
             position: 'absolute',
             bottom: '10px',
@@ -30,5 +47,17 @@ export default function Interface() {
                 </svg>
             )}
         </div>
+
+        {status === 'lose' && (
+            <div className={center({
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+            })}>
+                <p className={css({
+                    color: '#fff',
+                })}>You lost!</p>
+            </div>
+        )}
     </div>
 }
