@@ -115,8 +115,7 @@ function BlockStart({ position = [0, 0, 0] }) {
             <LanternStanding position={[9, 0, 9.5]} rotation={[0, Math.PI / 2, 0]} />
         </RigidBody>
 
-
-        <Lantern position={[6, 0, -1]} rotation={[0, -Math.PI / 2 + 0.5, 0]} />
+    <Lantern position={[6, 0, -1]} rotation={[0, -Math.PI / 2 + 0.5, 0]} />
         <Tree position={[9, 0, -1.5]} />
         <Tree position={[-6, 0, -1]} />
         <Pumpkin position={[-9, 0, -0.5]} />
@@ -126,6 +125,11 @@ function BlockStart({ position = [0, 0, 0] }) {
 function BlockEnd({ position = [0, 0, 0] }) {
     const end = useGame((state) => state.end)
     const phase = useGame((state) => state.phase)
+
+    const endWin = () => {
+        useGame.setState({ status: 'win' })
+        end()
+    }
 
     return <group position={position}>
         <Floor position={[-8, 0, 0]} />
@@ -171,7 +175,7 @@ function BlockEnd({ position = [0, 0, 0] }) {
             args={[4, 1, 0]}
             position={[0, 1.1, 0]}
             sensor
-            onIntersectionEnter={() => end()}
+            onIntersectionEnter={() => endWin()}
         />
 
         {phase === 'end' &&
@@ -199,7 +203,7 @@ function BlockEnd({ position = [0, 0, 0] }) {
     </group>
 }
 
-function Block({ special, position = [0, 0, 0] }) {
+function Block({ special, position = [0, 0, 0], index }) {
     const {isRightFenceBroken, isLeftFenceBroken} = useMemo(() => {
         const isRightFenceBroken = Math.random() < 0.3
         const isLeftFenceBroken = Math.random() < 0.3
@@ -211,7 +215,7 @@ function Block({ special, position = [0, 0, 0] }) {
         <Floor position={[-8, 0, 0]} />
         <Floor position={[-4, 0, 0]} />
         <Floor position={[0, 0, 0]} />
-        {special && <Portals />}
+        {special && <Portals index={index} />}
         <Floor position={[4, 0, 0]} />
         <Floor position={[8, 0, 0]} />
 
@@ -312,7 +316,7 @@ export function Level({ count = 2, specialEach = 5, types = [Block], seed = 0 })
         {blocks.map((Block, index) => {
             const { type: Type, isSpecial } = Block
             return (
-                <Type key={index} special={isSpecial} position={[0, 0, -(index + 1) * 4 ]} index={index} specialEach={specialEach} />)}
+                <Type key={index} special={isSpecial} position={[0, 0, -(index + 1) * 4 ]} index={index} />)}
             )
         }
 

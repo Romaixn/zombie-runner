@@ -38,11 +38,11 @@ export function Portal({ side, isBonus }) {
 
     const affectArmy = () => {
         const { countArmy } = useGame.getState();
-        const calc = eval(`${countArmy} ${text}`)
+        const calc = Math.round(eval(`${countArmy} ${text}`))
 
         useGame.setState({ countArmy: calc })
 
-        if (Math.round(calc) <= 0) {
+        if (calc <= 0) {
             end()
         }
     }

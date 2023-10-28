@@ -17,9 +17,9 @@ export function Game() {
     const countArmy = useGame((state) => state.countArmy)
 
     const keyboardMap = [
-        { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
+        { name: 'forward', keys: ['ArrowUp', 'KeyW', 'KeyZ'] },
         { name: 'backward', keys: ['ArrowDown', 'KeyS'] },
-        { name: 'leftward', keys: ['ArrowLeft', 'KeyA'] },
+        { name: 'leftward', keys: ['ArrowLeft', 'KeyA', 'KeyQ'] },
         { name: 'rightward', keys: ['ArrowRight', 'KeyD'] },
         { name: 'jump', keys: ['Space'] },
         { name: 'run', keys: ['Shift'] }

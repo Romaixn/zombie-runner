@@ -91,6 +91,7 @@ export default function Ecctrl({
 
   const phase = useGame((state) => state.phase)
   const status = useGame((state) => state.status)
+  const blocksSeed = useGame((state) => state.blocksSeed)
 
   useEffect(() => {
     if(phase === 'game') {
@@ -361,6 +362,13 @@ export default function Ecctrl({
     autoBalanceDampingC = autoBalanceForceDebug.autoBalanceDampingC
     autoBalanceDampingOnY = autoBalanceForceDebug.autoBalanceDampingOnY
   }
+
+    useEffect(() => {
+        if(blocksSeed !== 0) {
+            characterRef.current.setTranslation({ x: 0, y: 4, z: 7 })
+            sprintMult = 2
+        }
+    }, [blocksSeed])
 
   /**
    * keyboard controls setup

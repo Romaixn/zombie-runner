@@ -20,6 +20,7 @@ function Experience() {
                     position: [ 2, 5, 20 ],
                 } }
                 onPointerDown={(e) => {
+                    if (phase === 'welcome') return
                     e.target.requestPointerLock()
                 }}
             >
