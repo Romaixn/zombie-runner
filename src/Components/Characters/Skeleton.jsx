@@ -2,26 +2,28 @@ import { useGLTF } from "@react-three/drei";
 import { useMemo } from "react";
 
 export function Army({count = 1, types = [SkeletonArcher, SkeletonMage, SkeletonWarrior, SkeletonMinion]}) {
+    const numJacks = Math.floor(count / 10)
+    const remainingCount = count % 10
+
     const characters = useMemo(() => {
         const characters = []
-        let typeIndex = 0
-        for (let i = 0; i < count; i++) {
+
+        for (let i = 0; i < numJacks; i++) {
+            characters.push(Jack)
+        }
+
+        for (let i = 0; i < remainingCount; i++) {
             const type = types[Math.floor(Math.random() * types.length)]
             characters.push(type)
-
-            typeIndex++
-            if (typeIndex >= types.length) {
-                typeIndex = 0
-            }
         }
 
         return characters
     }, [count, types])
 
-    const scale = Math.min(2 / Math.sqrt(count), 1.2)
-    const spacing = 1.2 * scale
-    const numRows = Math.ceil(Math.sqrt(count))
-    const numCols = Math.ceil(count / numRows)
+    const scale = Math.min(2 / Math.sqrt(remainingCount + numJacks), 1.2)
+    const spacing = 1.5 * scale
+    const numRows = Math.ceil(Math.sqrt(remainingCount + numJacks))
+    const numCols = Math.ceil((remainingCount + numJacks) / numRows)
     const centerPosition = [0, -0.7, 0]
     const halfWidth = (numCols - 1) * spacing * 0.5
     const halfHeight = (numRows - 1) * spacing * 0.5
@@ -1276,3 +1278,74 @@ export function SkeletonMinion(props) {
 }
 useGLTF.preload("/characters/model/character_skeleton_minion_broken.gltf");
 useGLTF.preload("/characters/model/character_skeleton_minion.gltf");
+
+export function Jack(props) {
+    const { nodes, materials } = useGLTF("/characters/model/character_jack.gltf");
+    return (
+      <group {...props} dispose={null}>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Cube028.geometry}
+          material={materials.BrownDark}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Cube028_1.geometry}
+          material={materials.Black}
+        />
+        <group position={[0.204, 0.634, 0]}>
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube031.geometry}
+            material={materials.BrownDark}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube031_1.geometry}
+            material={materials.Orange}
+          />
+        </group>
+        <group position={[-0.204, 0.634, 0]}>
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube030.geometry}
+            material={materials.BrownDark}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube030_1.geometry}
+            material={materials.Orange}
+          />
+        </group>
+        <group position={[0, 0.704, 0]}>
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Sphere001.geometry}
+            material={materials.Orange}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Sphere001_1.geometry}
+            material={materials.BrownDark}
+          />
+        </group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.character_jackHead.geometry}
+          material={materials.Black}
+          position={[0, 0.704, 0]}
+        />
+      </group>
+    );
+  }
+
+  useGLTF.preload("/characters/model/character_jack.gltf");

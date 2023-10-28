@@ -18,7 +18,7 @@ export function Gate(props) {
             </RigidBody>
             <CuboidCollider
                 args={[2, 1, 0]}
-                position={[0, 1.1, -1]}
+                position={[0, 1.1, -2]}
                 sensor
                 onIntersectionEnter={() => play()}
             />

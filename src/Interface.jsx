@@ -1,9 +1,14 @@
 import useGame from "./stores/useGame"
 import { css } from "../styled-system/css"
+import { center } from '../styled-system/patterns'
 
 export default function Interface() {
     const soundPlaying = useGame((state) => state.soundPlaying)
     const toggleSound = useGame((state) => state.toggleSound)
+    const countArmy = useGame((state) => state.countArmy)
+    const phase = useGame((state) => state.phase)
+    const status = useGame((state) => state.status)
+    const restart = useGame((state) => state.restart)
 
     return <div className={css({
         position: 'fixed',
@@ -13,6 +18,19 @@ export default function Interface() {
         height: '100%',
         pointerEvents: 'none',
     })}>
+        {phase === 'game' && (
+            <div className={css({
+                position: 'absolute',
+                top: '0',
+                left: '50%',
+                transform: 'translateX(-50%)',
+            })}>
+                <p className={css({
+                    color: '#fff',
+                })}>{countArmy} points</p>
+            </div>
+        )}
+
         <div className={css({
             position: 'absolute',
             bottom: '10px',
@@ -30,5 +48,97 @@ export default function Interface() {
                 </svg>
             )}
         </div>
+
+        {status === 'lose' && (
+            <div className={center({
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                pointerEvents: 'auto',
+            })}>
+                <div className={css({
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: '4rem',
+                    backgroundColor: 'rgba(255, 165, 89, 0.7)',
+                    borderRadius: '2rem',
+                    backdropFilter: 'blur(4px)',
+                })}>
+                    <p className={css({
+                        color: '#fff',
+                        fontSize: '3rem',
+                        textAlign: 'center',
+                        paddingBottom: '1rem',
+                    })}>You lost! (Press esc to click on restart)</p>
+                    <button
+                        className={css({
+                            marginTop: '2rem',
+                            marginBottom: '1rem',
+                            padding: '8px 32px',
+                            backgroundColor: { base: 'rgba(255, 96, 0, 1)', _hover: 'rgba(255, 96, 0, 0.42)'},
+                            color: 'white',
+                            border: 'none',
+                            fontSize: '2.5rem',
+                            borderRadius: '8px',
+                            transition: 'background-color 0.4s',
+                            cursor: { _disabled: 'not-allowed', _hover: 'pointer' },
+                            _disabled: { opacity: 0.3 }
+                        })}
+                        onClick={restart}
+                    >
+                        Restart the game
+                    </button>
+                </div>
+            </div>
+        )}
+
+        {status === 'win' && (
+            <div className={center({
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                pointerEvents: 'auto',
+            })}>
+                <div className={css({
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: '4rem',
+                    backgroundColor: 'rgba(255, 165, 89, 0.7)',
+                    borderRadius: '2rem',
+                    backdropFilter: 'blur(4px)',
+                })}>
+                    <p className={css({
+                        color: '#fff',
+                        fontSize: '3rem',
+                        textAlign: 'center',
+                        paddingBottom: '1rem',
+                    })}>You win! (Press esc to click on restart)</p>
+                    <p className={css({
+                        color: '#fff',
+                        fontSize: '2.5rem',
+                        textAlign: 'center',
+                        paddingBottom: '1rem',
+                    })}>With {countArmy} points.</p>
+                    <button
+                        className={css({
+                            marginTop: '2rem',
+                            marginBottom: '1rem',
+                            padding: '8px 32px',
+                            backgroundColor: { base: 'rgba(255, 96, 0, 1)', _hover: 'rgba(255, 96, 0, 0.42)'},
+                            color: 'white',
+                            border: 'none',
+                            fontSize: '2.5rem',
+                            borderRadius: '8px',
+                            transition: 'background-color 0.4s',
+                            cursor: { _disabled: 'not-allowed', _hover: 'pointer' },
+                            _disabled: { opacity: 0.3 }
+                        })}
+                        onClick={restart}
+                    >
+                        Restart the game
+                    </button>
+                </div>
+            </div>
+        )}
     </div>
 }

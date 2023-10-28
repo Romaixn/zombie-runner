@@ -1,31 +1,36 @@
 import { useGLTF } from "@react-three/drei"
+import { useMemo } from "react"
 
 export function Tree(props) {
-    const random = Math.floor(Math.random() * 6) + 1
-    let treeType
+    const treeType = useMemo(() => {
+        const random = Math.floor(Math.random() * 6) + 1
+        let type
 
-    switch(random) {
-        case 1:
-            treeType = 'tree_pine_orange_medium'
-            break
-        case 2:
-            treeType = 'tree_pine_orange_small'
-            break
-        case 3:
-            treeType = 'tree_dead_medium'
-            break
-        case 4:
-            treeType = 'tree_dead_small'
-            break
-        case 5:
-            treeType = 'tree_pine_yellow_medium'
-            break
-        case 6:
-            treeType = 'tree_pine_yellow_small'
-            break
-        default:
-            treeType = 'tree_pine_orange_small'
-    }
+        switch(random) {
+            case 1:
+                type = 'tree_pine_orange_medium'
+                break
+            case 2:
+                type = 'tree_pine_orange_small'
+                break
+            case 3:
+                type = 'tree_dead_medium'
+                break
+            case 4:
+                type = 'tree_dead_small'
+                break
+            case 5:
+                type = 'tree_pine_yellow_medium'
+                break
+            case 6:
+                type = 'tree_pine_yellow_small'
+                break
+            default:
+                type = 'tree_pine_orange_small'
+        }
+
+        return type
+    }, [])
 
     const { nodes, materials } = useGLTF(`/gltf/${treeType}.gltf`)
 

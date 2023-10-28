@@ -1,19 +1,25 @@
 import { useGLTF } from "@react-three/drei"
+import { useMemo } from "react"
 
 export function Skull(props) {
-    const random = Math.floor(Math.random() * 2) + 1
-    let skullType
+    const skullType = useMemo(() => {
+        const random = Math.floor(Math.random() * 2) + 1
+        let type
 
-    switch(random) {
-        case 1:
-            skullType = 'skull'
-            break
-        case 2:
-            skullType = 'skull_candle'
-            break
-        default:
-            skullType = 'skull'
-    }
+        switch(random) {
+            case 1:
+                type = 'skull'
+                break
+            case 2:
+                type = 'skull_candle'
+                break
+            default:
+                type = 'skull'
+        }
+
+        return type
+    }, [])
+
 
     const { nodes, materials } = useGLTF(`/gltf/${skullType}.gltf`)
 

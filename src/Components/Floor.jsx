@@ -1,5 +1,6 @@
 import { useGLTF } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
+import { useMemo } from "react";
 
 export function Floor(props) {
     const { nodes, materials } = useGLTF('/gltf/floor_dirt.gltf')
@@ -31,22 +32,26 @@ export function FloorGrave(props) {
 
 
 export function Path(props) {
-    const random = Math.floor(Math.random() * 3) + 1
-    let pathType
+    const pathType = useMemo(() => {
+        const random = Math.floor(Math.random() * 3) + 1
+        let type
 
-    switch(random) {
-        case 1:
-            pathType = 'path_A'
-            break
-        case 2:
-            pathType = 'path_B'
-            break
-        case 3:
-            pathType = 'path_C'
-            break
-        default:
-            pathType = 'path_A'
-    }
+        switch(random) {
+            case 1:
+                type = 'path_A'
+                break
+            case 2:
+                type = 'path_B'
+                break
+            case 3:
+                type = 'path_C'
+                break
+            default:
+                type = 'path_A'
+        }
+
+        return type
+    }, [])
 
     const { nodes, materials } = useGLTF(`/gltf/${pathType}.gltf`)
 

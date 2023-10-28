@@ -1,33 +1,35 @@
 import { useGLTF } from "@react-three/drei"
-import { RigidBody } from "@react-three/rapier"
+import { useMemo } from "react"
 
 export function Pillar(props) {
-    const random = Math.floor(Math.random() * 6) + 1
-    let pillarType
+    const pillarType = useMemo(() => {
+        const random = Math.floor(Math.random() * 6) + 1
+        let type
 
-    switch(random) {
-        case 1:
-            pillarType = 'fence_pillar'
-            break
-        case 2:
-            pillarType = 'fence_pillar_broken'
-            break
-        default:
-            pillarType = 'fence_pillar'
-    }
+        switch(random) {
+            case 1:
+                type = 'fence_pillar'
+                break
+            case 2:
+                type = 'fence_pillar_broken'
+                break
+            default:
+                type = 'fence_pillar'
+        }
+
+        return type
+    }, [])
 
     const { nodes, materials } = useGLTF(`/gltf/${pillarType}.gltf`)
 
     return (
         <group {...props}>
-            <RigidBody type="fixed">
-                <mesh
-                    geometry={nodes[pillarType].geometry}
-                    material={materials.HalloweenBits}
-                    receiveShadow
-                    castShadow
-                />
-            </RigidBody>
+            <mesh
+                geometry={nodes[pillarType].geometry}
+                material={materials.HalloweenBits}
+                receiveShadow
+                castShadow
+            />
         </group>
     )
 }

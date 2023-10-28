@@ -15,6 +15,7 @@ import { Shrine } from "./Components/Shrine"
 import { Float, Sparkles, Text } from "@react-three/drei"
 import * as THREE from 'three'
 import { Portals } from "./Components/Portal"
+import useGame from "./stores/useGame"
 
 function BlockStart({ position = [0, 0, 0] }) {
     return <group position={position}>
@@ -114,8 +115,7 @@ function BlockStart({ position = [0, 0, 0] }) {
             <LanternStanding position={[9, 0, 9.5]} rotation={[0, Math.PI / 2, 0]} />
         </RigidBody>
 
-
-        <Lantern position={[6, 0, -1]} rotation={[0, -Math.PI / 2 + 0.5, 0]} />
+    <Lantern position={[6, 0, -1]} rotation={[0, -Math.PI / 2 + 0.5, 0]} />
         <Tree position={[9, 0, -1.5]} />
         <Tree position={[-6, 0, -1]} />
         <Pumpkin position={[-9, 0, -0.5]} />
@@ -123,6 +123,14 @@ function BlockStart({ position = [0, 0, 0] }) {
 }
 
 function BlockEnd({ position = [0, 0, 0] }) {
+    const end = useGame((state) => state.end)
+    const phase = useGame((state) => state.phase)
+
+    const endWin = () => {
+        useGame.setState({ status: 'win' })
+        end()
+    }
+
     return <group position={position}>
         <Floor position={[-8, 0, 0]} />
         <Floor position={[-4, 0, 0]} />
@@ -163,31 +171,63 @@ function BlockEnd({ position = [0, 0, 0] }) {
         <Fence position={[5.75, 0, -3.6]} />
         <Fence position={[-5.75, 0, -3.6]} />
 
+        <CuboidCollider
+            args={[4, 1, 0]}
+            position={[0, 1.1, 0]}
+            sensor
+            onIntersectionEnter={() => endWin()}
+        />
+
+        {phase === 'end' &&
+            <CuboidCollider
+                args={[4, 3, 0]}
+                position={[0, 3, 15]}
+            />
+        }
+
+        <Sparkles size={6} position={[0, 1, 2]} scale={[20, 10, 10]} />
         <Crypt position={[0, 0, -8]} />
+
+        <Lantern position={[3.5, 0, -4.5]} rotation={[0, -Math.PI / 2 + 1 , 0]} />
+        <Lantern position={[-3.5, 0, -4.5]} rotation={[0, Math.PI / 2 - 1, 0]} />
+
+        <group position={[0, 0, -4]}>
+            <Decor side='left' />
+            <Decor side='right' />
+        </group>
+
+        <group position={[0, 0, -8]}>
+            <Decor side='left' />
+            <Decor side='right' />
+        </group>
     </group>
 }
 
-function Block({ special, position = [0, 0, 0]}) {
-    const isRightFenceBroken = Math.random() < 0.3
-    const isLeftFenceBroken = Math.random() < 0.3
+function Block({ special, position = [0, 0, 0], index, seed }) {
+    const {isRightFenceBroken, isLeftFenceBroken} = useMemo(() => {
+        const isRightFenceBroken = Math.random() < 0.3
+        const isLeftFenceBroken = Math.random() < 0.3
+
+        return {isRightFenceBroken, isLeftFenceBroken}
+    }, [seed])
 
     return <group position={position}>
         <Floor position={[-8, 0, 0]} />
         <Floor position={[-4, 0, 0]} />
         <Floor position={[0, 0, 0]} />
-        {special && <Portals />}
+        {special && <Portals index={index} seed={seed} />}
         <Floor position={[4, 0, 0]} />
         <Floor position={[8, 0, 0]} />
 
         {isRightFenceBroken ? <FenceBroken position={[4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} /> : <Fence position={[4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />}
         {isLeftFenceBroken ? <FenceBroken position={[-4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} /> : <Fence position={[-4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />}
 
-        <Decor side='left' />
-        <Decor side='right' />
+        <Decor side='left' index={index} seed={seed} />
+        <Decor side='right' index={index} seed={seed} />
     </group>
 }
 
-function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, Bone, Skull] }) {
+function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, Bone, Skull], index, seed }) {
     const blocks = useMemo(() => {
         const blocks = []
         let typeIndex = 0
@@ -206,7 +246,7 @@ function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, 
         }
 
         return blocks
-    }, [side, count, types])
+    }, [side, index, seed])
 
     return <>
         {blocks.map((block, index) => {
@@ -226,17 +266,19 @@ function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, 
 function Bounds({ length = 1}) {
     return <>
         <RigidBody type="fixed">
-            <CuboidCollider args={[4, 4, 0.2]} position={[-6, 3.5, 1]} friction={1} />
-            <CuboidCollider args={[4, 4, 0.2]} position={[6, 3.5, 1]} friction={1} />
+            <CuboidCollider args={[4, 4, 0.2]} position={[-6, 3.5, 1]} />
+            <CuboidCollider args={[4, 4, 0.2]} position={[6, 3.5, 1]} />
 
-            <CuboidCollider args={[0.25, 4, length * 2 + 0.7]} position={[-4, 3.5, -length * 2]} friction={1} />
-            <CuboidCollider args={[0.25, 4, length * 2 + 0.7]} position={[4, 3.5, -length * 2]} friction={1} />
+            <CuboidCollider args={[0.25, 4, length * 2 + 0.7]} position={[-4, 3.5, -length * 2]} />
+            <CuboidCollider args={[0.25, 4, length * 2 + 0.7]} position={[4, 3.5, -length * 2]} />
 
             <CuboidCollider args={[3.7, 0.1, length * 2]} position={[0, 0, -length * 2]} />
 
-            <CuboidCollider args={[10, 4, 0.2]} position={[0, 3.5, 10.2]} friction={1} />
-            <CuboidCollider args={[0.2, 4, 5]} position={[10.2, 3.5, 5]} friction={1} />
-            <CuboidCollider args={[0.2, 4, 5]} position={[-10.2, 3.5, 5]} friction={1} />
+            <CuboidCollider args={[4, 4, 0.1]} position={[0, 2, -length * 4]} />
+
+            <CuboidCollider args={[10, 4, 0.2]} position={[0, 3.5, 10.2]} />
+            <CuboidCollider args={[0.2, 4, 5]} position={[10.2, 3.5, 5]} />
+            <CuboidCollider args={[0.2, 4, 5]} position={[-10.2, 3.5, 5]} />
 
             <CuboidCollider args={[9.9, 0.1, 5]} position={[0, 0, 5]} />
         </RigidBody>
@@ -266,7 +308,6 @@ export function Level({ count = 2, specialEach = 5, types = [Block], seed = 0 })
             specialIndex++
         }
 
-
         return blocks
     }, [count, types, seed])
 
@@ -275,14 +316,14 @@ export function Level({ count = 2, specialEach = 5, types = [Block], seed = 0 })
         {blocks.map((Block, index) => {
             const { type: Type, isSpecial } = Block
             return (
-                <Type key={index} special={isSpecial} position={[0, 0, -(index + 1) * 4 ]} />)}
+                <Type key={index} special={isSpecial} position={[0, 0, -(index + 1) * 4 ]} index={index} seed={seed} />)}
             )
         }
 
-        <Sparkles size={6} position={[0, 1, -count * 4 / 2]} scale={[30, 10, -(count + 1) * 4]} />
+        <Sparkles key={seed + 1} size={6} position={[0, 1, -count * 4 / 2]} scale={[30, 10, -(count + 1) * 4]} />
 
-        <BlockEnd position={[0, 0, -(count + 1) * 4 ]} />
+        <BlockEnd key={seed + 2} position={[0, 0, -(count + 1) * 4 ]} />
 
-        <Bounds length={count + 2} />
+        <Bounds key={seed + 3} length={count + 2} />
     </>
 }
