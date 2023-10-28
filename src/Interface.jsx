@@ -34,7 +34,7 @@ export default function Interface() {
             })}>
                 <p className={css({
                     color: '#fff',
-                    fontSize: '2rem',
+                    fontSize: '2.5rem',
                     fontFamily: 'shlop',
                     letterSpacing: '0.2rem',
                 })}>{countArmy} points</p>
