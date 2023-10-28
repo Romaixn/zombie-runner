@@ -98,6 +98,7 @@ export default function Ecctrl({
         setIsPlaying(true)
     } else {
         setIsPlaying(false)
+        setSprintMult(2)
     }
 }, [phase])
 
