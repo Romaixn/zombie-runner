@@ -1,35 +1,40 @@
 import { useGLTF } from "@react-three/drei"
+import { useMemo } from "react"
 
 export function Coffin(props) {
-    const random = Math.floor(Math.random() * 2) + 1
-    let coffinType
-    let lid = false
+    const coffinType = useMemo(() => {
+        const random = Math.floor(Math.random() * 2) + 1
+        let type
+        let lid = false
 
-    switch(random) {
-        case 1:
-            coffinType = 'coffin'
-            lid = true
-            break
-        case 2:
-            coffinType = 'coffin_decorated'
-            lid = false
-            break
-        default:
-            coffinType = 'coffin'
-            lid = true
-    }
+        switch(random) {
+            case 1:
+                type = 'coffin'
+                lid = true
+                break
+            case 2:
+                type = 'coffin_decorated'
+                lid = false
+                break
+            default:
+                type = 'coffin'
+                lid = true
+        }
 
-    const { nodes, materials } = useGLTF(`/gltf/${coffinType}.gltf`)
+        return { type, lid }
+    }, [])
+
+    const { nodes, materials } = useGLTF(`/gltf/${coffinType.type}.gltf`)
 
     return (
         <group {...props}>
             <mesh
-                geometry={nodes[coffinType].geometry}
+                geometry={nodes[coffinType.type].geometry}
                 material={materials.HalloweenBits}
                 receiveShadow
                 castShadow
             />
-            {lid && (
+            {coffinType.lid && (
                 <mesh
                     geometry={nodes.coffin_lid.geometry}
                     material={materials.HalloweenBits}

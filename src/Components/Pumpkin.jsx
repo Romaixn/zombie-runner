@@ -1,31 +1,36 @@
 import { useGLTF } from "@react-three/drei"
+import { useMemo } from "react"
 
 export function Pumpkin(props) {
-    const random = Math.floor(Math.random() * 6) + 1
-    let pumpkinType
+    const pumpkinType = useMemo(() => {
+        const random = Math.floor(Math.random() * 6) + 1
+        let type
 
-    switch(random) {
-        case 1:
-            pumpkinType = 'pumpkin_orange_jackolantern'
-            break
-        case 2:
-            pumpkinType = 'pumpkin_orange'
-            break
-        case 3:
-            pumpkinType = 'pumpkin_orange_small'
-            break
-        case 4:
-            pumpkinType = 'pumpkin_yellow_jackolantern'
-            break
-        case 5:
-            pumpkinType = 'pumpkin_yellow'
-            break
-        case 6:
-            pumpkinType = 'pumpkin_yellow_small'
-            break
-        default:
-            pumpkinType = 'pumpkin_yellow_jackolantern'
-    }
+        switch(random) {
+            case 1:
+                type = 'pumpkin_orange_jackolantern'
+                break
+            case 2:
+                type = 'pumpkin_orange'
+                break
+            case 3:
+                type = 'pumpkin_orange_small'
+                break
+            case 4:
+                type = 'pumpkin_yellow_jackolantern'
+                break
+            case 5:
+                type = 'pumpkin_yellow'
+                break
+            case 6:
+                type = 'pumpkin_yellow_small'
+                break
+            default:
+                type = 'pumpkin_yellow_jackolantern'
+        }
+
+        return type
+    }, [])
 
     const { nodes, materials } = useGLTF(`/gltf/${pumpkinType}.gltf`)
 

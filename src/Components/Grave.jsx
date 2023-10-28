@@ -1,31 +1,36 @@
 import { useGLTF } from "@react-three/drei"
+import { useMemo } from "react"
 
 export function Grave(props) {
-    const random = Math.floor(Math.random() * 6) + 1
-    let graveType
+    const graveType = useMemo(() => {
+        const random = Math.floor(Math.random() * 6) + 1
+        let type
 
-    switch(random) {
-        case 1:
-            graveType = 'grave_A_destroyed'
-            break
-        case 2:
-            graveType = 'grave_A'
-            break
-        case 3:
-            graveType = 'grave_B'
-            break
-        case 4:
-            graveType = 'gravemarker_A'
-            break
-        case 5:
-            graveType = 'gravemarker_B'
-            break
-        case 6:
-            graveType = 'gravestone'
-            break
-        default:
-            graveType = 'grave_A'
-    }
+        switch(random) {
+            case 1:
+                type = 'grave_A_destroyed'
+                break
+            case 2:
+                type = 'grave_A'
+                break
+            case 3:
+                type = 'grave_B'
+                break
+            case 4:
+                type = 'gravemarker_A'
+                break
+            case 5:
+                type = 'gravemarker_B'
+                break
+            case 6:
+                type = 'gravestone'
+                break
+            default:
+                type = 'grave_A'
+        }
+
+        return type
+    }, [])
 
     const { nodes, materials } = useGLTF(`/gltf/${graveType}.gltf`)
 

@@ -1,22 +1,27 @@
 import { useGLTF } from "@react-three/drei"
+import { useMemo } from "react"
 
 export function Shrine(props) {
-    const random = Math.floor(Math.random() * 3) + 1
-    let shrineType
+    const shrineType = useMemo(() => {
+        const random = Math.floor(Math.random() * 3) + 1
+        let type
 
-    switch(random) {
-        case 1:
-            shrineType = 'shrine'
-            break
-        case 2:
-            shrineType = 'shrine_candles'
-            break
-        case 3:
-            shrineType = 'plaque_candles'
-            break
-        default:
-            shrineType = 'shrine'
-    }
+        switch(random) {
+            case 1:
+                type = 'shrine'
+                break
+            case 2:
+                type = 'shrine_candles'
+                break
+            case 3:
+                type = 'plaque_candles'
+                break
+            default:
+                type = 'shrine'
+        }
+
+        return type
+    }, [])
 
     const { nodes, materials } = useGLTF(`/gltf/${shrineType}.gltf`)
 

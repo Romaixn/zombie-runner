@@ -37,7 +37,6 @@ export default function Ecctrl({
 
   turnVelMultiplier = 0.2,
   turnSpeed = 15,
-  sprintMult = 2,
   jumpVel = 4,
   jumpForceToGroundMult = 5,
   slopJumpMult = 0.25,
@@ -87,6 +86,7 @@ export default function Ecctrl({
   const characterRef = useRef()
   const characterModelRef = useRef()
   const [isPlaying, setIsPlaying] = useState(false)
+  const [sprintMult, setSprintMult] = useState(2)
   const [elapsedTimeAfterPlaying, setElapsedTimeAfterPlaying] = useState(0)
 
   const phase = useGame((state) => state.phase)
@@ -217,7 +217,7 @@ export default function Ecctrl({
     maxVelLimit = characterControlsDebug.maxVelLimit
     turnVelMultiplier = characterControlsDebug.turnVelMultiplier
     turnSpeed = characterControlsDebug.turnSpeed
-    sprintMult = characterControlsDebug.sprintMult
+    setSprintMult(characterControlsDebug.sprintMult)
     jumpVel = characterControlsDebug.jumpVel
     jumpForceToGroundMult = characterControlsDebug.jumpForceToGroundMult
     slopJumpMult = characterControlsDebug.slopJumpMult
@@ -366,7 +366,8 @@ export default function Ecctrl({
     useEffect(() => {
         if(blocksSeed !== 0) {
             characterRef.current.setTranslation({ x: 0, y: 4, z: 7 })
-            sprintMult = 2
+            setSprintMult(2)
+            setElapsedTimeAfterPlaying(0)
         }
     }, [blocksSeed])
 
@@ -704,7 +705,7 @@ export default function Ecctrl({
 
         speed = Math.min(speed, maxSpeed)
 
-        sprintMult = speed
+        setSprintMult(speed)
         setElapsedTimeAfterPlaying(elapsed + delta)
     }
 

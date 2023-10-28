@@ -209,7 +209,7 @@ function Block({ special, position = [0, 0, 0], index }) {
         const isLeftFenceBroken = Math.random() < 0.3
 
         return {isRightFenceBroken, isLeftFenceBroken}
-    })
+    }, [])
 
     return <group position={position}>
         <Floor position={[-8, 0, 0]} />
@@ -222,12 +222,12 @@ function Block({ special, position = [0, 0, 0], index }) {
         {isRightFenceBroken ? <FenceBroken position={[4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} /> : <Fence position={[4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />}
         {isLeftFenceBroken ? <FenceBroken position={[-4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} /> : <Fence position={[-4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />}
 
-        <Decor side='left' />
-        <Decor side='right' />
+        <Decor side='left' index={index} />
+        <Decor side='right' index={index} />
     </group>
 }
 
-function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, Bone, Skull] }) {
+function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, Bone, Skull], index }) {
     const blocks = useMemo(() => {
         const blocks = []
         let typeIndex = 0
@@ -246,7 +246,7 @@ function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, 
         }
 
         return blocks
-    }, [side, count, types])
+    }, [side, index])
 
     return <>
         {blocks.map((block, index) => {
