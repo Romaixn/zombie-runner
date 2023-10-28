@@ -6,7 +6,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { useMemo } from "react"
 
-export function Portal({ side, isBonus }) {
+export function Portal({ side, isBonus, seed }) {
     const [text, setText] = useState('')
     const end = useGame((state) => state.end)
     const posX = side === "left" ? -2.8 : 1
@@ -34,7 +34,7 @@ export function Portal({ side, isBonus }) {
         }
 
         setText(`${operation}${operand}`)
-    }, [isBonus])
+    }, [isBonus, seed])
 
     const affectArmy = () => {
         const { countArmy } = useGame.getState();
@@ -69,24 +69,24 @@ export function Portal({ side, isBonus }) {
     )
 }
 
-export function Portals({ index }) {
+export function Portals({ index, seed }) {
     const {isBonusLeft, isBonusRight} = useMemo(() => {
         let isOnlyPenalty = false
 
         if(index !== 1) {
-            isOnlyPenalty = Math.random() < 0.2
+            isOnlyPenalty = Math.random() < 0.1
         }
 
         const isBonusLeft = isOnlyPenalty ? false : Math.round(Math.random()) === 1
         const isBonusRight = isOnlyPenalty ? false : !isBonusLeft
 
         return { isBonusLeft, isBonusRight }
-    }, [])
+    }, [seed])
 
     return (
         <>
-            <Portal side='left' isBonus={isBonusLeft} />
-            <Portal side='right' isBonus={isBonusRight} />
+            <Portal side='left' isBonus={isBonusLeft} seed={seed} />
+            <Portal side='right' isBonus={isBonusRight} seed={seed} />
         </>
     )
 }

@@ -366,7 +366,7 @@ export default function Ecctrl({
 
     useEffect(() => {
         if(blocksSeed !== 0) {
-            characterRef.current.setTranslation({ x: 0, y: 4, z: 7 })
+            characterRef.current.setTranslation({ x: 0, y: 5, z: 7 })
             setSprintMult(2)
             setElapsedTimeAfterPlaying(0)
         }

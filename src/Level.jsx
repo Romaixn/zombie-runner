@@ -203,31 +203,31 @@ function BlockEnd({ position = [0, 0, 0] }) {
     </group>
 }
 
-function Block({ special, position = [0, 0, 0], index }) {
+function Block({ special, position = [0, 0, 0], index, seed }) {
     const {isRightFenceBroken, isLeftFenceBroken} = useMemo(() => {
         const isRightFenceBroken = Math.random() < 0.3
         const isLeftFenceBroken = Math.random() < 0.3
 
         return {isRightFenceBroken, isLeftFenceBroken}
-    }, [])
+    }, [seed])
 
     return <group position={position}>
         <Floor position={[-8, 0, 0]} />
         <Floor position={[-4, 0, 0]} />
         <Floor position={[0, 0, 0]} />
-        {special && <Portals index={index} />}
+        {special && <Portals index={index} seed={seed} />}
         <Floor position={[4, 0, 0]} />
         <Floor position={[8, 0, 0]} />
 
         {isRightFenceBroken ? <FenceBroken position={[4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} /> : <Fence position={[4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />}
         {isLeftFenceBroken ? <FenceBroken position={[-4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} /> : <Fence position={[-4, 0, -1.3]} rotation={[0, Math.PI / 2, 0]} />}
 
-        <Decor side='left' index={index} />
-        <Decor side='right' index={index} />
+        <Decor side='left' index={index} seed={seed} />
+        <Decor side='right' index={index} seed={seed} />
     </group>
 }
 
-function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, Bone, Skull], index }) {
+function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, Bone, Skull], index, seed }) {
     const blocks = useMemo(() => {
         const blocks = []
         let typeIndex = 0
@@ -246,7 +246,7 @@ function Decor({ side = 'left', count = 3, types = [Tree, Tree, Pumpkin, Grave, 
         }
 
         return blocks
-    }, [side, index])
+    }, [side, index, seed])
 
     return <>
         {blocks.map((block, index) => {
@@ -316,14 +316,14 @@ export function Level({ count = 2, specialEach = 5, types = [Block], seed = 0 })
         {blocks.map((Block, index) => {
             const { type: Type, isSpecial } = Block
             return (
-                <Type key={index} special={isSpecial} position={[0, 0, -(index + 1) * 4 ]} index={index} />)}
+                <Type key={index} special={isSpecial} position={[0, 0, -(index + 1) * 4 ]} index={index} seed={seed} />)}
             )
         }
 
-        <Sparkles size={6} position={[0, 1, -count * 4 / 2]} scale={[30, 10, -(count + 1) * 4]} />
+        <Sparkles key={seed + 1} size={6} position={[0, 1, -count * 4 / 2]} scale={[30, 10, -(count + 1) * 4]} />
 
-        <BlockEnd position={[0, 0, -(count + 1) * 4 ]} />
+        <BlockEnd key={seed + 2} position={[0, 0, -(count + 1) * 4 ]} />
 
-        <Bounds length={count + 2} />
+        <Bounds key={seed + 3} length={count + 2} />
     </>
 }
