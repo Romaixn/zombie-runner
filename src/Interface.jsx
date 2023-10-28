@@ -27,6 +27,7 @@ export default function Interface() {
             })}>
                 <p className={css({
                     color: '#fff',
+                    fontSize: '2rem',
                 })}>{countArmy} points</p>
             </div>
         )}
@@ -135,7 +136,7 @@ export default function Interface() {
                         })}
                         onClick={restart}
                     >
-                        Restart the game (with longer level)
+                        Restart the game (with more difficulty)
                     </button>
                 </div>
             </div>

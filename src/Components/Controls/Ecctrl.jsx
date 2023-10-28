@@ -92,6 +92,8 @@ export default function Ecctrl({
   const phase = useGame((state) => state.phase)
   const status = useGame((state) => state.status)
   const blocksSeed = useGame((state) => state.blocksSeed)
+  const maxSpeed = useGame((state) => state.maxSpeed)
+  const speedIncreaseRate = useGame((state) => state.speedIncreaseRate)
 
   useEffect(() => {
     if(phase === 'game') {
@@ -698,9 +700,7 @@ export default function Ecctrl({
         canJump = false
 
         const elapsed = elapsedTimeAfterPlaying
-        const maxSpeed = 10
         const minSpeed = 2.5
-        const speedIncreaseRate = 0.5
 
         let speed = elapsed * speedIncreaseRate + minSpeed
 
