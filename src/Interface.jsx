@@ -1,6 +1,7 @@
 import useGame from "./stores/useGame"
 import { css } from "../styled-system/css"
 import { center } from '../styled-system/patterns'
+import { useKeyboardControls } from "@react-three/drei"
 
 export default function Interface() {
     const soundPlaying = useGame((state) => state.soundPlaying)
@@ -9,6 +10,12 @@ export default function Interface() {
     const phase = useGame((state) => state.phase)
     const status = useGame((state) => state.status)
     const restart = useGame((state) => state.restart)
+
+    const forward = useKeyboardControls((state) => state.forward)
+    const backward = useKeyboardControls((state) => state.backward)
+    const leftward = useKeyboardControls((state) => state.leftward)
+    const rightward = useKeyboardControls((state) => state.rightward)
+    const jump = useKeyboardControls((state) => state.jump)
 
     return <div className={css({
         position: 'fixed',
@@ -28,6 +35,8 @@ export default function Interface() {
                 <p className={css({
                     color: '#fff',
                     fontSize: '2rem',
+                    fontFamily: 'shlop',
+                    letterSpacing: '0.2rem',
                 })}>{countArmy} points</p>
             </div>
         )}
@@ -47,6 +56,42 @@ export default function Interface() {
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={css({ color: '#fff', width: '3rem' })}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6l4.72-4.72a.75.75 0 011.28.531V19.94a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.506-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.395C2.806 8.757 3.63 8.25 4.51 8.25H6.75z" />
                 </svg>
+            )}
+        </div>
+
+        <div className="controls">
+            {phase !== 'game' && (
+                <div className="raw">
+                    <div className={ `key ${ forward ? 'active' : '' }` }>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className={css({ color: '#fff', width: '1.5rem' })}>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75" />
+                        </svg>
+                    </div>
+                </div>
+            )}
+            <div className="raw">
+                <div className={ `key ${ leftward ? 'active' : '' }` }>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className={css({ color: '#fff', width: '1.5rem' })}>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" />
+                    </svg>
+                </div>
+                {phase !== 'game' && (
+                    <div className={ `key ${ backward ? 'active' : '' }` }>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className={css({ color: '#fff', width: '1.5rem' })}>
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m0 0l6.75-6.75M12 19.5l-6.75-6.75" />
+                        </svg>
+                    </div>
+                )}
+                <div className={ `key ${ rightward ? 'active' : '' }` }>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className={css({ color: '#fff', width: '1.5rem' })}>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                </div>
+            </div>
+            {phase !== 'game' && (
+                <div className="raw">
+                    <div className={ `key large ${ jump ? 'active' : '' }` }></div>
+                </div>
             )}
         </div>
 

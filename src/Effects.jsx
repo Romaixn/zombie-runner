@@ -1,11 +1,6 @@
-import { SSR, DepthOfField, EffectComposer } from "@react-three/postprocessing"
+import { SSR, DepthOfField, EffectComposer, Noise, Bloom, Vignette } from "@react-three/postprocessing"
 
-export default function Effects() {
-    return <EffectComposer>
-        <DepthOfField
-            focusDistance={ 0.05 }
-            focalLength={ 0.2 }
-            bokehScale={ 3 }
-        />
+export function Effects() {
+    return <EffectComposer disableNormalPass multisampling={4}>
     </EffectComposer>
 }
