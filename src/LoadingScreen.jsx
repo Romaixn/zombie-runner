@@ -102,8 +102,15 @@ export function LoadingScreen() {
                         <p>World is loading...</p>
                     </div>
                 </div>
-
             </div>
+            <p className={css({
+                position: 'absolute',
+                bottom: '1rem',
+                left: '1rem',
+                zIndex: 1,
+                color: 'white',
+                pointerEvents: 'auto'
+            })}>Made with ❤️ by <a href='https://rherault.dev' target="_blank">rherault</a></p>
         </div>
     )
 }

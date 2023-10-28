@@ -135,7 +135,7 @@ export default function Interface() {
                         })}
                         onClick={restart}
                     >
-                        Restart the game
+                        Restart the game (with longer level)
                     </button>
                 </div>
             </div>
