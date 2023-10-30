@@ -55,7 +55,7 @@ export function Portal({ side, isBonus, seed }) {
             <Text position={[1, 2, 0.2]}>{text}</Text>
             <mesh position={[1, 1, 0]}>
                 <planeGeometry args={[2.5, 2]} />
-                <meshBasicMaterial color={'#FF6000'} opacity={0.2} transparent />
+                <meshBasicMaterial color={'#FFA559'} opacity={0.2} transparent />
             </mesh>
             <CuboidCollider
                 args={[1, 1, 0]}
