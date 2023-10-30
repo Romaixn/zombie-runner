@@ -9,6 +9,7 @@ import { exitPointerLock } from "../utils/PointerLockHandler"
 
 export function Portal({ side, isBonus, seed }) {
     const [text, setText] = useState('')
+    const [displayText, setDisplayText] = useState('')
     const end = useGame((state) => state.end)
     const posX = side === "left" ? -2.8 : 1
 
@@ -35,6 +36,8 @@ export function Portal({ side, isBonus, seed }) {
         }
 
         setText(`${operation}${operand}`)
+        const displayOperation = operation === '*' ? '×' : operation === '/' ? '÷' : operation
+        setDisplayText(`${displayOperation}${operand}`)
     }, [isBonus, seed])
 
     const affectArmy = () => {
@@ -54,7 +57,7 @@ export function Portal({ side, isBonus, seed }) {
             <RigidBody type='fixed'>
                 <Pillar position={[2.4, 0, 0]} />
             </RigidBody>
-            <Text position={[1, 2, 0.2]}>{text}</Text>
+            <Text font="/fonts/shlop.otf" position={[1, 2, 0.2]}>{displayText}</Text>
             <mesh position={[1, 1, 0]}>
                 <planeGeometry args={[2.5, 2]} />
                 <meshBasicMaterial color={'#FFA559'} opacity={0.2} transparent />
