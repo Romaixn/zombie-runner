@@ -2,11 +2,17 @@ import { useGLTF } from "@react-three/drei";
 import { useMemo } from "react";
 
 export function Army({count = 1, types = [SkeletonArcher, SkeletonMage, SkeletonWarrior, SkeletonMinion]}) {
-    const numJacks = Math.floor(count / 10)
-    const remainingCount = count % 10
+    const numWitches = Math.floor(count / 100)
+    const remainingCountAfterWitches = count % 100
+    const numJacks = Math.floor(remainingCountAfterWitches / 10)
+    const remainingCount = remainingCountAfterWitches % 10
 
     const characters = useMemo(() => {
         const characters = []
+
+        for (let i = 0; i < numWitches; i++) {
+            characters.push(Witch)
+        }
 
         for (let i = 0; i < numJacks; i++) {
             characters.push(Jack)
@@ -20,10 +26,10 @@ export function Army({count = 1, types = [SkeletonArcher, SkeletonMage, Skeleton
         return characters
     }, [count, types])
 
-    const scale = Math.min(2 / Math.sqrt(remainingCount + numJacks), 1.2)
+    const scale = Math.min(2 / Math.sqrt(remainingCount + numJacks + numWitches), 1.2)
     const spacing = 1.5 * scale
-    const numRows = Math.ceil(Math.sqrt(remainingCount + numJacks))
-    const numCols = Math.ceil((remainingCount + numJacks) / numRows)
+    const numRows = Math.ceil(Math.sqrt(remainingCount + numJacks + numWitches))
+    const numCols = Math.ceil((remainingCount + numJacks + numWitches) / numRows)
     const centerPosition = [0, -0.7, 0]
     const halfWidth = (numCols - 1) * spacing * 0.5
     const halfHeight = (numRows - 1) * spacing * 0.5
@@ -1349,3 +1355,106 @@ export function Jack(props) {
   }
 
   useGLTF.preload("/characters/model/character_jack.gltf");
+
+
+export function Witch(props) {
+    const { nodes, materials } = useGLTF("/characters/model/character_witch.gltf");
+    return (
+        <group {...props} dispose={null}>
+        <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube5268.geometry}
+            material={materials.Purple}
+        />
+        <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube5268_1.geometry}
+            material={materials.Yellow}
+        />
+        <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube5268_2.geometry}
+            material={materials.Black}
+        />
+        <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube5268_3.geometry}
+            material={materials.GreenLight}
+        />
+        <group position={[0.204, 0.634, 0]}>
+            <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube040.geometry}
+            material={materials.Purple}
+            />
+            <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube040_1.geometry}
+            material={materials.GreenLight}
+            />
+        </group>
+        <group position={[-0.204, 0.634, 0]}>
+            <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube039.geometry}
+            material={materials.Purple}
+            />
+            <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube039_1.geometry}
+            material={materials.GreenLight}
+            />
+        </group>
+        <group position={[0, 0.704, 0]}>
+            <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube001.geometry}
+            material={materials.Black}
+            />
+            <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube001_1.geometry}
+            material={materials.GreenLight}
+            />
+            <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube001_2.geometry}
+            material={materials.Green}
+            />
+            <group position={[0, 0.768, -0.071]} rotation={[-0.264, 0, 0]}>
+            <mesh
+                castShadow
+                receiveShadow
+                geometry={nodes.Cube004.geometry}
+                material={materials.Purple}
+            />
+            <mesh
+                castShadow
+                receiveShadow
+                geometry={nodes.Cube004_1.geometry}
+                material={materials.Black}
+            />
+            <mesh
+                castShadow
+                receiveShadow
+                geometry={nodes.Cube004_2.geometry}
+                material={materials.Yellow}
+            />
+            </group>
+        </group>
+        </group>
+    );
+}
+
+useGLTF.preload("/characters/model/character_witch.gltf");
