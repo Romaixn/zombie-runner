@@ -174,7 +174,7 @@ function BlockEnd({ position = [0, 0, 0] }) {
         <Fence position={[-5.75, 0, -3.6]} />
 
         <CuboidCollider
-            args={[4, 1, 0]}
+            args={[4, 1, 1]}
             position={[0, 1.1, 3]}
             sensor
             onIntersectionEnter={() => endWin()}

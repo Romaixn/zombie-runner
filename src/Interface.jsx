@@ -7,6 +7,7 @@ export default function Interface() {
     const soundPlaying = useGame((state) => state.soundPlaying)
     const toggleSound = useGame((state) => state.toggleSound)
     const countArmy = useGame((state) => state.countArmy)
+    const level = useGame((state) => state.level)
     const phase = useGame((state) => state.phase)
     const status = useGame((state) => state.status)
     const restart = useGame((state) => state.restart)
@@ -37,7 +38,7 @@ export default function Interface() {
                     fontSize: '2.5rem',
                     fontFamily: 'shlop',
                     letterSpacing: '0.2rem',
-                })}>{countArmy} points</p>
+                })}>{countArmy} points (level: {level})</p>
             </div>
         )}
 
@@ -115,7 +116,7 @@ export default function Interface() {
                         fontSize: '3rem',
                         textAlign: 'center',
                         paddingBottom: '1rem',
-                    })}>You lose! 💀</p>
+                    })}>You lose at level {level}! 💀</p>
                     <button
                         className={css({
                             marginTop: '2rem',
@@ -158,7 +159,7 @@ export default function Interface() {
                         fontSize: '3rem',
                         textAlign: 'center',
                         paddingBottom: '1rem',
-                    })}>You win! 🏆</p>
+                    })}>You win the level {level}! 🏆</p>
                     <p className={css({
                         color: '#fff',
                         fontSize: '2.5rem',

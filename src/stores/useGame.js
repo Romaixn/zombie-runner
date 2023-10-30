@@ -9,6 +9,7 @@ export default create(subscribeWithSelector((set) => {
         speedIncreaseRate: 0.5,
         countArmy: 1,
         status: null,
+        level: 1,
 
         soundPlaying: true,
         toggleSound: () => set((state) => ({ soundPlaying: !state.soundPlaying })),
@@ -37,7 +38,7 @@ export default create(subscribeWithSelector((set) => {
         }),
         restart: () => set((state) => {
             if(state.phase === 'end' && state.status === 'win') {
-                return { phase: 'lobby', blocksSeed: Math.random(), countArmy: 1, status: null, blocksCount: state.blocksCount + 20, maxSpeed: state.maxSpeed + 2, speedIncreaseRate: state.speedIncreaseRate + 0.15 }
+                return { phase: 'lobby', blocksSeed: Math.random(), countArmy: 1, status: null, blocksCount: state.blocksCount + 20, maxSpeed: state.maxSpeed + 2, speedIncreaseRate: state.speedIncreaseRate + 0.15, level: state.level + 1 }
             }
 
             return { phase: 'lobby', blocksSeed: Math.random(), countArmy: 1, status: null }
