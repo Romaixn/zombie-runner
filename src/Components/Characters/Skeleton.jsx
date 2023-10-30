@@ -1,35 +1,42 @@
 import { useGLTF } from "@react-three/drei";
 import { useMemo } from "react";
 
-export function Army({count = 1, types = [SkeletonArcher, SkeletonMage, SkeletonWarrior, SkeletonMinion]}) {
-    const numWitches = Math.floor(count / 100)
-    const remainingCountAfterWitches = count % 100
-    const numJacks = Math.floor(remainingCountAfterWitches / 10)
+export function Army({count = 1, baseTypes = [SkeletonMinion], specialTypes = [SkeletonArcher, SkeletonMage, SkeletonWarrior]}) {
+    const numJacks = Math.floor(count / 1000)
+    const remainingCountAfterJacks = count % 1000
+    const numWitches = Math.floor(remainingCountAfterJacks / 100)
+    const remainingCountAfterWitches = remainingCountAfterJacks % 100
+    const numSpecials = Math.floor(remainingCountAfterWitches / 10)
     const remainingCount = remainingCountAfterWitches % 10
 
     const characters = useMemo(() => {
         const characters = []
 
-        for (let i = 0; i < numWitches; i++) {
-            characters.push(Witch)
-        }
-
         for (let i = 0; i < numJacks; i++) {
             characters.push(Jack)
         }
 
+        for (let i = 0; i < numWitches; i++) {
+            characters.push(Witch)
+        }
+
+        for (let i = 0; i < numSpecials; i++) {
+            const specialType = specialTypes[Math.floor(Math.random() * specialTypes.length)]
+            characters.push(specialType)
+        }
+
         for (let i = 0; i < remainingCount; i++) {
-            const type = types[Math.floor(Math.random() * types.length)]
+            const type = baseTypes[Math.floor(Math.random() * baseTypes.length)]
             characters.push(type)
         }
 
         return characters
-    }, [count, types])
+    }, [count])
 
-    const scale = Math.min(2 / Math.sqrt(remainingCount + numJacks + numWitches), 1.2)
+    const scale = Math.min(2 / Math.sqrt(remainingCount + numJacks + numWitches + numSpecials), 1.2)
     const spacing = 1.5 * scale
-    const numRows = Math.ceil(Math.sqrt(remainingCount + numJacks + numWitches))
-    const numCols = Math.ceil((remainingCount + numJacks + numWitches) / numRows)
+    const numRows = Math.ceil(Math.sqrt(remainingCount + numJacks + numWitches + numSpecials))
+    const numCols = Math.ceil((remainingCount + numJacks + numWitches + numSpecials) / numRows)
     const centerPosition = [0, -0.7, 0]
     const halfWidth = (numCols - 1) * spacing * 0.5
     const halfHeight = (numRows - 1) * spacing * 0.5

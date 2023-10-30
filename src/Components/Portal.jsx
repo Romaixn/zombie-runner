@@ -63,7 +63,7 @@ export function Portal({ side, isBonus, seed }) {
                 <meshBasicMaterial color={'#FFA559'} opacity={0.2} transparent />
             </mesh>
             <CuboidCollider
-                args={[1, 1, 0]}
+                args={[1, 1, 0.5]}
                 position={[1, 1.1, 0]}
                 sensor
                 onIntersectionEnter={() => affectArmy()}/>
