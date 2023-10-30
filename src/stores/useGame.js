@@ -37,7 +37,7 @@ export default create(subscribeWithSelector((set) => {
         }),
         restart: () => set((state) => {
             if(state.phase === 'end' && state.status === 'win') {
-                return { phase: 'lobby', blocksSeed: Math.random(), countArmy: 1, status: null, blocksCount: state.blocksCount + 20, maxSpeed: state.maxSpeed + 4, speedIncreaseRate: state.speedIncreaseRate + 0.25 }
+                return { phase: 'lobby', blocksSeed: Math.random(), countArmy: 1, status: null, blocksCount: state.blocksCount + 20, maxSpeed: state.maxSpeed + 2, speedIncreaseRate: state.speedIncreaseRate + 0.15 }
             }
 
             return { phase: 'lobby', blocksSeed: Math.random(), countArmy: 1, status: null }
