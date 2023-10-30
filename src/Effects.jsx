@@ -1,5 +1,4 @@
-import { N8AO } from "@react-three/postprocessing"
-import { DepthOfField, EffectComposer, Noise, Bloom, Vignette, ToneMapping } from "@react-three/postprocessing"
+import { EffectComposer, Bloom, Vignette, ToneMapping } from "@react-three/postprocessing"
 import { BlendFunction } from 'postprocessing'
 
 export function Effects() {
@@ -13,6 +12,12 @@ export function Effects() {
             maxLuminance={10.0} // maximum luminance
             averageLuminance={1.0} // average luminance
             adaptationRate={1.0} // luminance adaptation rate
+        />
+          <Vignette
+            offset={0.5} // vignette offset
+            darkness={0.5} // vignette darkness
+            eskil={false} // Eskil's vignette technique
+            blendFunction={BlendFunction.NORMAL} // blend mode
         />
     </EffectComposer>
 }
