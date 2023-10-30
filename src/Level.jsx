@@ -16,6 +16,7 @@ import { Float, Sparkles, Text } from "@react-three/drei"
 import * as THREE from 'three'
 import { Portals } from "./Components/Portal"
 import useGame from "./stores/useGame"
+import { exitPointerLock } from "./utils/PointerLockHandler"
 
 function BlockStart({ position = [0, 0, 0] }) {
     return <group position={position}>
@@ -129,6 +130,7 @@ function BlockEnd({ position = [0, 0, 0] }) {
     const endWin = () => {
         useGame.setState({ status: 'win' })
         end()
+        exitPointerLock()
     }
 
     return <group position={position}>

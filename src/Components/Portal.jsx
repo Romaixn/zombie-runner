@@ -5,6 +5,7 @@ import useGame from "../stores/useGame"
 import { useEffect } from "react"
 import { useState } from "react"
 import { useMemo } from "react"
+import { exitPointerLock } from "../utils/PointerLockHandler"
 
 export function Portal({ side, isBonus, seed }) {
     const [text, setText] = useState('')
@@ -44,6 +45,7 @@ export function Portal({ side, isBonus, seed }) {
 
         if (calc <= 0) {
             end()
+            exitPointerLock()
         }
     }
 

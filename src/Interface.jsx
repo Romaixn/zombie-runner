@@ -115,7 +115,7 @@ export default function Interface() {
                         fontSize: '3rem',
                         textAlign: 'center',
                         paddingBottom: '1rem',
-                    })}>You lost! (Press esc to click on restart)</p>
+                    })}>You lost!</p>
                     <button
                         className={css({
                             marginTop: '2rem',
@@ -158,7 +158,7 @@ export default function Interface() {
                         fontSize: '3rem',
                         textAlign: 'center',
                         paddingBottom: '1rem',
-                    })}>You win! (Press esc to click on restart)</p>
+                    })}>You win!</p>
                     <p className={css({
                         color: '#fff',
                         fontSize: '2.5rem',

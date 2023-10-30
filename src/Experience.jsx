@@ -5,8 +5,12 @@ import { Canvas } from '@react-three/fiber'
 import { LoadingScreen } from './LoadingScreen'
 import { KeyboardControls } from '@react-three/drei'
 import Interface from './Interface'
+import { useRef } from 'react'
+import { requestPointerLock } from './utils/PointerLockHandler'
 
 function Experience() {
+    const canvasRef = useRef()
+
     const phase = useGame((state) => state.phase)
     const keyboardMap = [
         { name: 'forward', keys: ['ArrowUp', 'KeyW', 'KeyZ'] },
@@ -17,10 +21,15 @@ function Experience() {
         { name: 'run', keys: ['Shift'] }
     ]
 
+    const handlePointerDown = () => {
+        requestPointerLock(canvasRef.current)
+    }
+
     return (
         <>
             <KeyboardControls map={keyboardMap}>
                 <Canvas
+                    ref={canvasRef}
                     shadows
                     camera={ {
                         fov: 45,
@@ -28,10 +37,7 @@ function Experience() {
                         far: 200,
                         position: [ 2, 5, 20 ],
                     } }
-                    onPointerDown={(e) => {
-                        if (phase === 'welcome') return
-                        e.target.requestPointerLock()
-                    }}
+                    onPointerDown={handlePointerDown}
                 >
                     <color args={ [ '#383B43' ] } attach="background" />
                     <fog attach='fog' args={['#383B43', 1, 30]} />
