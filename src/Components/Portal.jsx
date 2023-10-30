@@ -20,16 +20,16 @@ export function Portal({ side, isBonus, seed }) {
 
         switch (operation) {
             case '+':
-                operand = 1 + Math.floor(Math.random() * 5)
+                operand = 1 + Math.floor(Math.random() * 10)
                 break;
             case '-':
-                operand = 1 + Math.floor(Math.random() * 5)
+                operand = 1 + Math.floor(Math.random() * 10)
                 break;
             case '*':
-                operand = 2 + Math.floor(Math.random() * 2)
+                operand = 2 + Math.floor(Math.random() * 4)
                 break;
             case '/':
-                operand = 2 + Math.floor(Math.random() * 5)
+                operand = 2 + Math.floor(Math.random() * 4)
                 break;
             default:
                 break;
