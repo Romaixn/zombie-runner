@@ -26,7 +26,7 @@ export function Portal({ side, isBonus, seed }) {
                 operand = 1 + Math.floor(Math.random() * 10)
                 break;
             case '*':
-                operand = 2 + Math.floor(Math.random() * 4)
+                operand = 2 + Math.floor(Math.random() * 3)
                 break;
             case '/':
                 operand = 2 + Math.floor(Math.random() * 4)
